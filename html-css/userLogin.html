@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+  </head>
+  <style>
+    /* *{
+      border: 1px solid red;
+    } */
+    body{
+  background-color: rgb(126, 226, 126);
+height: 100vh;
+    }
+/* .main-container{
+  width: 100%;
+  height:100%;
+  background-color: rgb(126, 226, 126);
+} */
+.login-widget{
+  background-color:lightgray;
+  width: 300px;
+  height: 400px;
+  margin: 50vh;
+  text-align:center;
+}
+form{
+  display:flex;
+  flex-direction: column;
+  align-items:center;
+  height: 100%;
+  justify-content:space-around;
+}
+form >div{
+  width:60%;
+  height: 30px;
+  text-align: center;
+}
+.input-parent input{
+  width: 100%;
+  height: 100%;
+  background-color:rgb(185, 185, 185);
+  padding:0;
+  margin:auto;
+  text-align: center;
+  border:none;
+}
+a{
+  color:red;
+  text-decoration: none;
+}
+#submit{
+  background-color:rgb(48, 180, 224);
+  color:white;
+}
+
+</style>
+  <body>
+    <div class="main-container">&nbsp
+      <div class="login-widget">
+        <form action="https://www.tesla.com" target="_">
+
+          <h2>User Login</h2>
+
+          <div class="input-parent">
+            <!-- <label for="username">Username</label> -->
+            <input name="username" type="text" placeholder="Username">
+          </div>
+          <div class="input-parent">
+            <!-- <label for="password">Password</label> -->
+            <input name="password" type="password" placeholder="Password">
+          </div>
+          <div class="input-parent">
+            <input type="submit" id="submit" value="LOGIN">
+          </div>
+          <div>
+            <a href="#">Forgot Password?</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

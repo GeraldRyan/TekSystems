@@ -1,0 +1,25 @@
+/* table, th, td{
+  border: 1px solid red;
+} */
+
+body{
+  margin: 0;
+}
+.red{
+  width: 400px;
+  height:400px;
+  background-color:red;
+}
+.blue{
+  color:white;
+  width:200px;
+  height:200px;
+  background-color:blue;
+  margin: 10px 50%;
+}
+
+.orange{
+  background-color: orange;
+  height: 100px;
+  width: 100px;
+}
