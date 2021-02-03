@@ -1,0 +1,1 @@
+No Coding done this week. Learned Agile/Scrum and SDLC/STLC
