@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Super Awesome Document</title>
+    <style>
+      *{
+        border: 1px solid red;
+      }
+      .borderBox{
+        border: 2px solid purple;
+        height: 400px;
+        width: 400px;
+        margin: 150px 0 0 100px;
+        position: absolute;
+      }
+      .solidBox{
+        height: 75px;
+        width: 75px; 
+        background-color: blue;
+        margin: 115px 0 0 75px;
+        position: relative;
+        animation-name: identifier;
+        animation-delay: 1s;
+        animation-iteration-count: infinite;
+        animation-fill-mode: both;
+        animation-duration: 4s;
+      }
+      /* @keyframes identifier{
+        0% { margin: 115px 0 0 75px  } 
+        12% {margin:115px 0 0 475px; } 
+        25% { margin:515px 0 0 475px;} 
+        37% { margin:515px 0 0 75px;}
+        50% { }
+        62% {}
+        75% {}
+        87% {}
+        100% {}
+      } */
+      @keyframes identifier{
+        0% { margin: 115px 0 0 75px  } 
+        25% {margin:115px 0 0 475px; } 
+        50% { margin:515px 0 0 75px;} 
+        75% { margin:515px 0 0 475px;}
+        100% { }
+      }
+      /* @keyframes identifier{
+        0% { margin: 115px 0 0 75px  } 
+        25% {margin:115px 0 0 475px; } 
+        50% { margin:515px 0 0 475px;} 
+        75% { margin:515px 0 0 75px;}
+        100% { }
+      } */
+    </style>
+  </head>
+  <body>
+    <div class="borderBox">
+    </div>
+    <div class="solidBox">
+    </div>
+
+  </body>
+</html>
+
+<!-- Pseudocode
+move right: margin to 115px 0 0 475px
+move down left margin left  515 0 0 75
+move right margin left + 515 0 0 475
+move back home margin should = 115 0 0 75
+-->
