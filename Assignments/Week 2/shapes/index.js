@@ -54,9 +54,11 @@ const renderShape = () =>
       break;
     case "lower-triangle":
       $(".side-length-value").text(sideLength)
+      $("#world-seed-lower-triangle").append(`<p><pre>${lowerTriangleMaker(sideLength)}</pre></p>`).css("text-align", "left").css("display", "flex").css("justify-content", "center")
       break;
     case "upper-triangle":
       $(".side-length-value").text(sideLength)
+      $("#world-seed-upper-triangle").append(`<p><pre>${lowerTriangleMaker(sideLength)}</pre></p>`).css("text-align", "left").css("display", "flex").css("justify-content", "center")
       break;
     case "upside-down-trapezoid":
       $(".width-value").text(width)
@@ -133,5 +135,13 @@ function crossMaker(shapeSize)
   // }
 
 
+  return string
+}
+
+function lowerTriangleMaker(sideLength){
+  string = ""
+  for (let i = 1; i<= sideLength; i++){
+    string += repeatStringNTimes("*", i) + "\n" 
+  }
   return string
 }
