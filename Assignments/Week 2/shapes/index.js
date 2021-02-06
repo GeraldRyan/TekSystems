@@ -98,16 +98,39 @@ function checkeredString(char, n, offset = 0)
 function crossMaker(shapeSize)
 {
   string = ""
-  intHalfShapeSize = Math.floor(shapeSize/2)
+  intHalfShapeSize = Math.floor(shapeSize / 2)
   for (let i = 0; i < (intHalfShapeSize); i++)
   {
-    for (let j = 0; j < shapeSize - i; j++)
+    for (let j = 0; j < shapeSize - (i*2); j++)
     {
-      j == 0 || (j == shapeSize -i - 1) ? string += "*" : string += " "
+      j == 0 || (j == shapeSize - (i*2) - 1) ? string += "*" : string += " "
+    }
+    string += "\n"
+  }
+  // Reflection
+  for (let i = 0; i < (intHalfShapeSize); i++)
+  {
+    for (let j = 0; j < shapeSize; j++)
+    {
+      j == shapeSize-(intHalfShapeSize) -i -1 || (j == intHalfShapeSize + (i) ) ? string += "*" : string += " "
     }
     string += "\n"
   }
 
+
+
+
+
+
+
+  // for (let i = 0; i < (intHalfShapeSize); i++)
+  // {
+  //   for (let j = 0; j < shapeSize - i*2; j++)
+  //   {
+  //     j == (intHalfShapeSize - i*2)-1 || (j == (shapeSize - (intHalfShapeSize - i*2-1))-1) ? string += "*" : string += " "
+  //   }
+  //   string += "\n"
+  // }
 
 
   return string
