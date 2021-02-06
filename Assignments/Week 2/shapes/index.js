@@ -58,7 +58,7 @@ const renderShape = () =>
       break;
     case "upper-triangle":
       $(".side-length-value").text(sideLength)
-      $("#world-seed-upper-triangle").append(`<p><pre>${lowerTriangleMaker(sideLength)}</pre></p>`).css("text-align", "left").css("display", "flex").css("justify-content", "center")
+      $("#world-seed-upper-triangle").append(`<p><pre>${lowerTriangleMaker(sideLength)}</pre></p>`).css("text-align", "left").css("display", "flex").css("justify-content", "center").css("transform", "rotate(180deg)")
       break;
     case "upside-down-trapezoid":
       $(".width-value").text(width)
