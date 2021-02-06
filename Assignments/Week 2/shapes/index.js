@@ -39,7 +39,7 @@ const renderShape = () =>
       {
         $("#world-seed-checkerboard").append(`<p>${checkeredString('*', width, i % 2)}</p>`)
       }
-      $("#world-seed-checkerboard p").css("font-weight","bold").css("letter-spacing","5px").css("font-size","2rem")
+      $("#world-seed-checkerboard p").css("font-weight", "bold").css("letter-spacing", "5px").css("font-size", "2rem")
       // for (i = 0; i < height; i++)
       // {
       //   console.log("I", i)
@@ -49,6 +49,8 @@ const renderShape = () =>
       break;
     case "cross":
       $(".shape-size-value").text(shapeSize)
+      $("#world-seed-cross").append(`<p><pre>${crossMaker(shapeSize)}</pre></p>`)
+
       break;
     case "lower-triangle":
       $(".side-length-value").text(sideLength)
@@ -62,6 +64,7 @@ const renderShape = () =>
       break;
   }
 }
+
 
 function repeatStringNTimes(char, n)
 {
@@ -89,5 +92,23 @@ function checkeredString(char, n, offset = 0)
     }
     else string += spacer
   }
+  return string
+}
+
+function crossMaker(shapeSize)
+{
+  string = ""
+  intHalfShapeSize = Math.floor(shapeSize/2)
+  for (let i = 0; i < (intHalfShapeSize); i++)
+  {
+    for (let j = 0; j < shapeSize - i; j++)
+    {
+      j == 0 || (j == shapeSize -i - 1) ? string += "*" : string += " "
+    }
+    string += "\n"
+  }
+
+
+
   return string
 }
