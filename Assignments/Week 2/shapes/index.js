@@ -63,6 +63,8 @@ const renderShape = () =>
     case "upside-down-trapezoid":
       $(".width-value").text(width)
       $(".height-value").text(height)
+      $("#world-seed-upside-down-trapezoid").append(`<p><pre>${upsideDownTrapezoidMaker(width, height)}</pre></p>`).css("text-align", "left").css("display", "flex").css("justify-content", "center")
+
       break;
   }
 }
@@ -118,23 +120,6 @@ function crossMaker(shapeSize)
     }
     string += "\n"
   }
-
-
-
-
-
-
-
-  // for (let i = 0; i < (intHalfShapeSize); i++)
-  // {
-  //   for (let j = 0; j < shapeSize - i*2; j++)
-  //   {
-  //     j == (intHalfShapeSize - i*2)-1 || (j == (shapeSize - (intHalfShapeSize - i*2-1))-1) ? string += "*" : string += " "
-  //   }
-  //   string += "\n"
-  // }
-
-
   return string
 }
 
@@ -143,5 +128,18 @@ function lowerTriangleMaker(sideLength){
   for (let i = 1; i<= sideLength; i++){
     string += repeatStringNTimes("*", i) + "\n" 
   }
+  return string
+}
+
+function upsideDownTrapezoidMaker(width, height){
+  error ="   ___                                  ___  \n(o o)                                (o o)\n (  V  )    Impossible Shape lol    (  V  )\n--m-m----------------------------------m-m--"
+  if (height > width){
+    return error
+  }
+  string = ""
+
+
+
+
   return string
 }
