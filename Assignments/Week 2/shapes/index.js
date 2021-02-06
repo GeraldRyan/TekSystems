@@ -18,14 +18,13 @@ const renderShape = () =>
   height = $("#height-input").val();
   shapeSize = $("#shape-size-input").val();
   sideLength = $("#side-length-input").val();
-  // alert(`Rendering Shape of width: ${width} and height: ${height} and shape-size: ${shapeSize} and side length ${sideLength}`)
+  // $(".inner-content").scrollTop();
   switch (activeClass)
   {
     case "box":
       console.log(`expect box, got ${activeClass}`)
       $(".width-value").text(width)
       $(".height-value").text(height)
-
       for (let i = 0; i < height; i++)
       {
         $("#world-seed-box").append(`<p>${repeatStringNTimes('*', width)}</p>`)
@@ -39,18 +38,12 @@ const renderShape = () =>
       {
         $("#world-seed-checkerboard").append(`<p>${checkeredString('*', width, i % 2)}</p>`)
       }
-      $("#world-seed-checkerboard p").css("font-weight", "bold").css("letter-spacing", "5px").css("font-size", "2rem")
-      // for (i = 0; i < height; i++)
-      // {
-      //   console.log("I", i)
-      //   $("#world-seed-checkerboard").append(`<p>${checkeredString('*', width)}</p>`)
-      // }
-
+      $("#world-seed-checkerboard").append("<br>")
+      $("#world-seed-checkerboard p").css("font-weight", "bold").css("letter-spacing", "5px").css("font-size", "2rem").css("line-height",".1")
       break;
     case "cross":
       $(".shape-size-value").text(shapeSize)
       $("#world-seed-cross").append(`<p><pre>${crossMaker(shapeSize)}</pre></p>`)
-
       break;
     case "lower-triangle":
       $(".side-length-value").text(sideLength)
@@ -64,9 +57,20 @@ const renderShape = () =>
       $(".width-value").text(width)
       $(".height-value").text(height)
       $("#world-seed-upside-down-trapezoid").append(`<p><pre>${upsideDownTrapezoidMaker(width, height)}</pre></p>`).css("text-align", "center").css
-
       break;
   }
+  console.log( $("#world-seed-checkerboard").scrollTop())
+  // $("html, body").animate({ scrollTop: $("#content-parent").scrollTop() }, 1000);
+  $("html, body").animate({ scrollTop: 500 }, 0);
+
+
+
+
+}
+
+function clearContent(){
+  $(".world-seed").empty()
+  $("input").val("")
 }
 
 
