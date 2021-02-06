@@ -62,15 +62,21 @@ const renderShape = () =>
   console.log( $("#world-seed-checkerboard").scrollTop())
   // $("html, body").animate({ scrollTop: $("#content-parent").scrollTop() }, 1000);
   $("html, body").animate({ scrollTop: 500 }, 0);
-
-
-
-
 }
 
 function clearContent(){
   $(".world-seed").empty()
   $("input").val("")
+}
+
+function inputRandomInts(){
+  for (let i=0; i<4; i++){
+    $("#width-input").val(getRandomInt(1,100));
+    $("#height-input").val(getRandomInt(1,100));
+    $("#side-length-input").val(getRandomInt(1,100));
+    $("#shape-size-input").val(getRandomInt(1,100));
+
+  }
 }
 
 
@@ -153,4 +159,10 @@ function upsideDownTrapezoidMaker(width, height)
   }
   string += "\n"
   return string
+}
+
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
