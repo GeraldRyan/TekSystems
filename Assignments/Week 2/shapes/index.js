@@ -4,9 +4,9 @@ function toggleDisplay(className)
 {
   // $(".instructions").removeClass().addClass("instructions").addClass("content").addClass(className)
   className != activeClass ? $("#world-seed").empty() :
-    $(".form").removeClass("invisible")
   $(".result-shape").removeClass("invisible")
   $(".content").addClass("invisible")
+  $(".form").removeClass("invisible")
   $(`.${className}`).removeClass("invisible")
   activeClass = className
 }
