@@ -63,7 +63,7 @@ const renderShape = () =>
     case "upside-down-trapezoid":
       $(".width-value").text(width)
       $(".height-value").text(height)
-      $("#world-seed-upside-down-trapezoid").append(`<p><pre>${upsideDownTrapezoidMaker(width, height)}</pre></p>`).css("text-align", "left").css("display", "flex").css("justify-content", "center")
+      $("#world-seed-upside-down-trapezoid").append(`<p><pre>${upsideDownTrapezoidMaker(width, height)}</pre></p>`).css("text-align", "center").css
 
       break;
   }
@@ -105,9 +105,9 @@ function crossMaker(shapeSize)
   intHalfShapeSize = Math.floor(shapeSize / 2)
   for (let i = 0; i < (intHalfShapeSize); i++)
   {
-    for (let j = 0; j < shapeSize - (i*2); j++)
+    for (let j = 0; j < shapeSize - (i * 2); j++)
     {
-      j == 0 || (j == shapeSize - (i*2) - 1) ? string += "*" : string += " "
+      j == 0 || (j == shapeSize - (i * 2) - 1) ? string += "*" : string += " "
     }
     string += "\n"
   }
@@ -116,30 +116,37 @@ function crossMaker(shapeSize)
   {
     for (let j = 0; j < shapeSize; j++)
     {
-      j == shapeSize-(intHalfShapeSize) -i -1 || (j == intHalfShapeSize + (i) ) ? string += "*" : string += " "
+      j == shapeSize - (intHalfShapeSize) - i - 1 || (j == intHalfShapeSize + (i)) ? string += "*" : string += " "
     }
     string += "\n"
   }
   return string
 }
 
-function lowerTriangleMaker(sideLength){
+function lowerTriangleMaker(sideLength)
+{
   string = ""
-  for (let i = 1; i<= sideLength; i++){
-    string += repeatStringNTimes("*", i) + "\n" 
+  for (let i = 1; i <= sideLength; i++)
+  {
+    string += repeatStringNTimes("*", i) + "\n"
   }
   return string
 }
 
-function upsideDownTrapezoidMaker(width, height){
-  error ="   ___                                  ___  \n(o o)                                (o o)\n (  V  )    Impossible Shape lol    (  V  )\n--m-m----------------------------------m-m--"
-  if (height > width){
-    return error
+function upsideDownTrapezoidMaker(width, height)
+{
+  console.log(height, width)
+  if (parseInt(height) > parseInt(width)/2 )
+  {
+    console.log("Height:", height, "width", width, "height>width?", height > width)
+    errorMSG = "   ___                                  ___  \n(o o)                                (o o)\n (  V  )    Impossible Shape lol    (  V  )\n--m-m----------------------------------m-m--"
+    return errorMSG
   }
   string = ""
-
-
-
-
+  for (let i = 0; i < height; i++)
+  {
+    string += repeatStringNTimes("*", width - (i * 2)) + "\n"
+  }
+  string += "\n"
   return string
 }
