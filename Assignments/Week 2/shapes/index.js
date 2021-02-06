@@ -1,16 +1,10 @@
 let activeClass = null
-function repeatStringNTimes(char, n)
-{
-  if (n == 0){
-    return ""
-  }
-  return char + repeatStringNTimes(char, n - 1)
-}
+
 function toggleDisplay(className)
 {
   // $(".instructions").removeClass().addClass("instructions").addClass("content").addClass(className)
-  className != activeClass ? $("#world-seed").empty() : 
-  $(".form").removeClass("invisible")
+  className != activeClass ? $("#world-seed").empty() :
+    $(".form").removeClass("invisible")
   $(".result-shape").removeClass("invisible")
   $(".content").addClass("invisible")
   $(`.${className}`).removeClass("invisible")
@@ -32,14 +26,26 @@ const renderShape = () =>
       $(".width-value").text(width)
       $(".height-value").text(height)
 
-      for (i = 0; i < height; i++)
+      for (let i = 0; i < height; i++)
       {
-        $("#world-seed").append(`<p>${repeatStringNTimes('*', width)}</p>`)
+        $("#world-seed-box").append(`<p>${repeatStringNTimes('*', width)}</p>`)
       }
       break;
     case "checkerboard":
       $(".width-value").text(width)
       $(".height-value").text(height)
+      console.log(`Height value: ${height} width value: ${width}`)
+      for (i = 0; i < height; i++)
+      {
+        $("#world-seed-checkerboard").append(`<p>${checkeredString('*', width, i % 2)}</p>`)
+      }
+      $("#world-seed-checkerboard p").css("font-weight","bold").css("letter-spacing","5px").css("font-size","2rem")
+      // for (i = 0; i < height; i++)
+      // {
+      //   console.log("I", i)
+      //   $("#world-seed-checkerboard").append(`<p>${checkeredString('*', width)}</p>`)
+      // }
+
       break;
     case "cross":
       $(".shape-size-value").text(shapeSize)
@@ -55,4 +61,33 @@ const renderShape = () =>
       $(".height-value").text(height)
       break;
   }
+}
+
+function repeatStringNTimes(char, n)
+{
+  if (n == 0)
+  {
+    return ""
+  }
+  return char + repeatStringNTimes(char, n - 1)
+}
+function checkeredString(char, n, offset = 0)
+{
+  string = ""
+  spacer = " "
+  if (offset !== 0)
+  {
+    spacer = char
+    char = " "
+  }
+
+  for (let i = 0; i < n; i++)
+  {
+    if (i % 2 == 0)
+    {
+      string += char
+    }
+    else string += spacer
+  }
+  return string
 }
