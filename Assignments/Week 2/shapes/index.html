@@ -66,40 +66,64 @@
       <h3>Upside Down Trapezoid</h3>
       <p>Input width and height</p>
     </div>
-    <form action="">
+    <form class="invisible form">
       <div class="form-group">
         <label for="width-input"></label>
-        <input type="number" placeholder="input width" max="100" min="0" name="width-input"
+        <input type="number" placeholder="input width" max="100" min="0"
+          name="width-input"
           id="width-input"
-          class="form-control">
-        <!-- </div>
-      <div class="form-group"> -->
+          class="form-control box checkerboard upside-down-trapezoid content
+          invisible">
         <label for="height-input"></label>
-        <input type="number" placeholder="input height" max="100" min="0" name="height-input"
+        <input type="number" placeholder="input height" max="100" min="0"
+          name="height-input"
           id="height-input"
-          class="form-control">
+          class="form-control box checkerboard upside-down-trapezoid content
+          invisible">
+        <label for="shape-size-input"></label>
+        <input type="number" placeholder="input shape-size" max="100" min="0"
+          name="shape-size-input"
+          id="shape-size-input"
+          class="form-control cross content invisible">
+        <label for="side-length-input"></label>
+        <input type="number" placeholder="input side-length" max="100" min="0"
+          name="side-length-input"
+          id="side-length-input"
+          class="form-control lower-triangle upper-triangle content invisible">
       </div>
       <div class="form-group button-group">
-        <input type="submit" class="form-control">
+        <input onClick="renderShape()" type="button" value="render"
+          class="form-control">
         <button type="clear" class="form-control">Clear</button>
+        <button type="button" class="form-control">Random</button>
       </div>
 
     </form>
 
     <div class="content-parent">
-      <div class="content box">
+      <div class="result-box">
         <div class="result-text">
-          <p><pre>
-            Input Width:  <span>This is text in line</span>
+          <p><pre class="content box checkerboard upside-down-trapezoid
+              invisible">
+            Input Width:  <span class="width-value">This is text in line</span>
           </pre>
           </p>
-          <p><pre>
-            Input Width:  <span>This is text in line</span>
+          <p class="content box checkerboard upside-down-trapezoid invisible"><pre
+              class="content box checkerboard upside-down-trapezoid invisible">
+            Input Height:  <span class="height-value">This is text in line</span>
+          </pre>
+          </p>
+          <p><pre class="content cross invisible">
+            Input Size:  <span class="size-value">This is text in line</span>
+          </pre>
+          </p>
+          <p><pre class="content lower-triangle upper-triangle invisible">
+            Input Side Length:  <span class="side-length-value">This is text in line</span>
           </pre>
           </p>
         </div>
         <hr>
-        <div class="result-shape">
+        <div class="result-shape invisible">
           <p>
             <span><pre>
               Shape:
@@ -107,12 +131,34 @@
           </p>
         </div>
       </div>
-      <div class="content checkerboard invisible">CHECKERBOARD CONTENT</div>
-      <div class="content cross invisible">CROSS</div>
-      <div class="content lower-triangle invisible">LOWER TRIANGLE</div>
-      <div class="content upper-triangle invisible">UPPER TRIANGLE</div>
-      <div class="content upside-down-trapezoid invisible">UPSIDE DOWN
-        TRAPEZOID</div>
+
+      <div class="content box invisible">
+        <div class="inner-content">
+          BOX CONTENT
+          <div id="world-seed"></div>
+        </div>
+      </div>    
+      <div class="content checkerboard invisible">
+        <div class="inner-content">
+          CHECKERBOARD CONTENT
+        </div>
+      </div>
+      <div class="content cross invisible">
+        <div class="inner-content">
+          CROSS
+        </div>
+      </div>
+      <div class="content lower-triangle invisible">
+        <div class="inner-content">
+          LOWER TRIANGLE
+        </div></div>
+      <div class="content upper-triangle invisible"><div class="inner-content">
+        UPPER TRIANGLE
+      </div></div>
+      <div class="content upside-down-trapezoid invisible"><div class="inner-content">
+        UPSIDE DOWN
+          TRAPEZOID
+      </div></div>
     </div>
     <script src="index.js"></script>
   </body>

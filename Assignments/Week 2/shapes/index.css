@@ -42,7 +42,11 @@ input[type="submit"]{
   border: 1px solid grey;
 }
 .content{
-
+}
+.inner-content{
+  /* position:relative; */
+  text-align:center;
+  margin:auto;
 }
 nav img{
   height: 30px;
