@@ -19,17 +19,17 @@
   </head>
   <body>
     <nav class="navbar navbar-light navbar-expand-lg">
-      <a href="#" onClick="toggleDisplay('box')" class="navbar-brand"
+      <a href="#"  class="navbar-brand"
         id="n-box">Box</a>
-      <a href="#" onClick="toggleDisplay('checkerboard')" class="navbar-brand"
+      <a href="#"  class="navbar-brand"
         id="n-checkerboard">checkerboard</a>
-      <a href="#" onClick="toggleDisplay('cross')" class="navbar-brand"
+      <a href="#"  class="navbar-brand"
         id="n-cross">cross</a>
-      <a href="#" onClick="toggleDisplay('lower-triangle')" class="navbar-brand"
+      <a href="#" class="navbar-brand"
         id="n-lower-triangle">lower triangle</a>
-      <a href="#" onClick="toggleDisplay('upper-triangle')" class="navbar-brand"
+      <a href="#"  class="navbar-brand"
         id="n-upper-triangle">upper triangle</a>
-      <a href="#" onClick="toggleDisplay('upside-down-trapezoid')"
+      <a href="#"
         class="navbar-brand" id="n-upside-down-trapezoid">upside down
         trapezoid</a>
 
@@ -93,9 +93,9 @@
       </div>
       <div class="form-group button-group">
         <button onClick="renderShape()" type="button" value="render"
-          class="form-control">Render</button>
-        <button onClick="clearContent()" type="clear" class="form-control">Clear</button>
-        <button onClick="inputRandomInts()" type="button" class="form-control">Random</button>
+          class="form-control" id="render">Render</button>
+        <button onClick="clearContent()" type="clear" class="form-control" id="clear">Clear</button>
+        <button onClick="inputRandomInts()" type="button" class="form-control" id="input-random">Random</button>
       </div>
 
     </form>
@@ -169,6 +169,6 @@
         </div></div>
     </div>
     <footer class="bg-light text-center rr"><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Don't click me</a></footer>
-    <script src="index.js"></script>
+    <script type="module" src="index.js"></script>
   </body>
 </html>
