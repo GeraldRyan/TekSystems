@@ -75,7 +75,6 @@ function inputRandomInts(){
     $("#height-input").val(getRandomInt(1,100));
     $("#side-length-input").val(getRandomInt(1,100));
     $("#shape-size-input").val(getRandomInt(1,100));
-
   }
 }
 
@@ -166,3 +165,8 @@ function getRandomInt(min, max) {
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+
+
+$( document ).ready(function() {
+  toggleDisplay("box")
+});
