@@ -28,7 +28,7 @@ document.getElementById("equals-sign").addEventListener('click', function () { c
 function computeFigure()
 {
   console.log("Equals sign pressed")
-  value = 88765.215
+  value = 88765
   outputToScreen(value)
 
 }
@@ -36,7 +36,12 @@ function computeFigure()
 function outputToScreen(value)
 {
   // value = numeral(value).format('0.00')
-  document.getElementById("output-screen").innerText = numeral(value).format('0,000.00')
+  formattedValue = Intl.NumberFormat(navigator.language, {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 20, // Capped off at 20 by JS
+  }).format(value)
+  document.getElementById("output-screen").innerText = formattedValue
+  //  numeral(value).format('0,000.00')
 
 }
 
