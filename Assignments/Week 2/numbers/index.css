@@ -1,0 +1,19 @@
+/* table, th, td{
+  border: 1px solid red;
+} */
+table {
+  width: 200px;
+  height: 300px;
+  text-align: center;
+  border: 5px solid green;
+}
+th, td {
+  border: 1px solid red;
+}
+th {
+  text-align: right;
+}
+td:hover {
+  background-color: lightcoral;
+  color: white;
+}
