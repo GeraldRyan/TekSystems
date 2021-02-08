@@ -1,5 +1,7 @@
 bootstrap-4.6.0-dist
 
+*.zip
+
 # Compiled class file
 *.class
 
