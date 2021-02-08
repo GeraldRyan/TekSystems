@@ -61,16 +61,18 @@ print_odd_between(50)
 check_if_prime(7) ? console.log("Yes it's prime") : console.log("Not prime")
 printAllDivisibleBy(100, 4, 6)
 
-  password = prompt("Enter your password")
-  if (password === "123")
-  {
-    newDiv = document.createElement("div")
-    newDiv.appendChild(document.createTextNode("Secret Content"))
-    document.body.appendChild(newDiv)
-  }
-  else{
-    alert("denied");
-  }
+
+
+  // password = prompt("Enter your password")
+  // if (password === "123")
+  // {
+  //   newDiv = document.createElement("div")
+  //   newDiv.appendChild(document.createTextNode("Secret Content"))
+  //   document.body.appendChild(newDiv)
+  // }
+  // else{
+  //   alert("denied");
+  // }
 
 // listofPrimeNumbers = []
 // for (let i = 1; i < 100; i++)
