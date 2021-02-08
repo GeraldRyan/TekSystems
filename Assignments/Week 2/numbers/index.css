@@ -1,8 +1,9 @@
 /* table, th, td{
   border: 1px solid red;
 } */
-table {
+.calculator {
   width: 200px;
+  margin: 90px auto;
   height: 300px;
   text-align: center;
   border: 5px solid green;
