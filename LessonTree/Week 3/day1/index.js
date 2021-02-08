@@ -47,7 +47,8 @@ function isModXY(a, x, y)
   return false
 }
 
-function printAllDivisibleBy(ceiling, x, y){
+function printAllDivisibleBy(ceiling, x, y)
+{
   console.log(`Numbers divisible by ${x} and ${y}`)
   for (let i = 0; i < ceiling; i++)
   {
@@ -58,4 +59,19 @@ function printAllDivisibleBy(ceiling, x, y){
 print_even_between(30)
 print_odd_between(50)
 check_if_prime(7) ? console.log("Yes it's prime") : console.log("Not prime")
-printAllDivisibleBy(100, 4,6)
+printAllDivisibleBy(100, 4, 6)
+
+
+listofPrimeNumbers = []
+for (let i = 1; i < 100; i++)
+{
+  if (i % 2 == 0 || i in listofPrimeNumbers)
+  {
+    console.log("Not a prime")
+  }
+  else
+  {
+    console.log("Yes it is a prime")
+    listofPrimeNumbers.push(i)
+  }
+}
