@@ -8,27 +8,57 @@ document.getElementById("six").addEventListener('click', function () { numberCli
 document.getElementById("seven").addEventListener('click', function () { numberClicked(7) })
 document.getElementById("eight").addEventListener('click', function () { numberClicked(8) })
 document.getElementById("nine").addEventListener('click', function () { numberClicked(9) })
+document.getElementById("decimal-point").addEventListener('click', function () { decimalPointClicked() })
 document.getElementById("double-zero").addEventListener('click', function () { doubleZeroClicked() })
 
-document.getElementById("six").addEventListener('click', function () { numberClicked(6) })
-document.getElementById("six").addEventListener('click', function () { numberClicked(6) })
-document.getElementById("six").addEventListener('click', function () { numberClicked(6) })
-document.getElementById("six").addEventListener('click', function () { numberClicked(6) })
-document.getElementById("six").addEventListener('click', function () { numberClicked(6) })
-document.getElementById("six").addEventListener('click', function () { numberClicked(6) })
-document.getElementById("six").addEventListener('click', function () { numberClicked(6) })
-
+document.getElementById("clear-btn").addEventListener('click', function () { clearScreen() })
+document.getElementById("divide-btn").addEventListener('click', function () { functionButtonClicked("/") })
+document.getElementById("multiply-btn").addEventListener('click', function () { functionButtonClicked("*") })
+document.getElementById("add-btn").addEventListener('click', function () { functionButtonClicked("+") })
+document.getElementById("subtract-btn").addEventListener('click', function () { functionButtonClicked("-") })
 
 document.getElementById("equals-sign").addEventListener('click', function () { computeFigure() })
 
-// document.getElementById("output-screen").addEventListener('click', function () { doSomethingExtraordinary() })
+
+let buffer = 0
+let nCount = 0
+let arg1 = 0
+let arg2 = 0
+
+function numberClicked(number)
+{
+  console.log("nCount:", nCount)
+  buffer = number + (buffer * 10)
+  outputToScreen(buffer)
+  nCount++
+}
 
 
+function decimalPointClicked()
+{
+  console.log(".");
+}
+
+function functionButtonClicked(button)
+{
+  nCount = 0
+  arg1 = buffer
+  buffer = 0
+  console.log(button)
+}
+
+function clearScreen(){
+  buffer = 0
+  nCount = 0
+  outputToScreen(0)
+}
 
 function computeFigure()
 {
   console.log("Equals sign pressed")
   value = 88765
+  arg1 = value
+  arg = 0
   outputToScreen(value)
 
 }
@@ -45,10 +75,6 @@ function outputToScreen(value)
 
 }
 
-function numberClicked(number)
-{
-  console.log(number);
-}
 
 function doubleZeroClicked()
 {
