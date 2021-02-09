@@ -62,6 +62,9 @@ let bComputedNumberOnScreen = false
 
 function numberClicked(number)
 {
+  if (bComputedNumberOnScreen == true && currentOp == null){
+    startOver() // Assume they want a new calculation without having to explicitly clear screen
+  }
   if (bDecimalPointJustClicked == false && bDecimalPointInBuffer == false)
   {
     buffer = number + (buffer * 10)
@@ -146,10 +149,18 @@ function computeFigure()
       flushTempValues()
       break;
     case "/":
-
+      finalOutput = arg1 / arg2
+      arg1 = finalOutput
+      console.log(`final output ${finalOutput}`)
+      outputToScreen(finalOutput)
+      flushTempValues()
       break;
     case "*":
-
+      finalOutput = arg1 * arg2
+      arg1 = finalOutput
+      console.log(`final output ${finalOutput}`)
+      outputToScreen(finalOutput)
+      flushTempValues()
       break;
   }
   // value = 88765
