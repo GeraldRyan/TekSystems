@@ -49,7 +49,7 @@ document.getElementById("rr-btn").addEventListener('click', function () { rr() }
 
 document.getElementById("log2-btn").addEventListener('click', function () { logClicked(2) })
 document.getElementById("ln-btn").addEventListener('click', function () { logClicked(math.e) })
-// document.getElementById("i-btn").addEventListener('click', function () { iButtonClicked() })
+document.getElementById("cc-btn").addEventListener('click', function () { pressCC() })
 
 
 
@@ -87,9 +87,10 @@ function numberClicked(number)
     buffer = math.round(buffer + number * Math.pow(10, dCount), (-dCount))
     dCount--
   }
-  if (bNegativeNumber){
+  if (bNegativeNumber)
+  {
     buffer = -Math.abs(buffer)
-  } 
+  }
   outputToScreen(buffer)
 }
 
@@ -144,14 +145,16 @@ function powerClicked()
   bPowerButtonPressed = true
 }
 
-function iButtonClicked(){
+function iButtonClicked()
+{
   let iNum = math.i
   console.log(iNum)
   buffer = iNum
   outputToScreen("i")
 }
 
-function logClicked(base){
+function logClicked(base)
+{
   currentOp = "log"
   nCount = 0
   dCount = -1
@@ -222,8 +225,8 @@ function computeFigure()
       flushTempValues()
     case "log":
       console.log("arg1", arg1)
-      console.log("currentBase",currentBase)
-      finalOutput = math.round(getBaseLog(arg1, currentBase),5)
+      console.log("currentBase", currentBase)
+      finalOutput = math.round(getBaseLog(arg1, currentBase), 5)
       arg1 = finalOutput
       console.log(`final output ${finalOutput}`)
       outputToScreen(finalOutput)
@@ -240,9 +243,10 @@ function computeFigure()
 function outputToScreen(value)
 {
   // value = numeral(value).format('0.00')
-  if (typeof value == "string"){
-  document.getElementById("output-screen").innerText = value
-  return
+  if (typeof value == "string")
+  {
+    document.getElementById("output-screen").innerText = value
+    return
   }
   formattedValue = Intl.NumberFormat(navigator.language, {
     minimumFractionDigits: 2,
@@ -310,6 +314,20 @@ function flushTempValues()
   bDecimalPointInBuffer = false
   currentOp = null
   bNegativeNumber = false
+  outputToScreen(arg1)
+}
+
+function pressCC()
+{
+  buffer = 0
+  nCount = 0
+  dCount = -1
+  arg2 = 0
+  bDecimalPointJustClicked = false
+  bDecimalPointInBuffer = false
+  bNegativeNumber = false
+  bComputedNumberOnScreen = true
+  outputToScreen(arg1)
 }
 
 rr.counter = 0
@@ -322,6 +340,7 @@ function rr()
   }
 }
 
-function getBaseLog(x, currentBase){
+function getBaseLog(x, currentBase)
+{
   return Math.log(x) / Math.log(currentBase)
 }
