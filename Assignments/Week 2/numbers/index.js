@@ -22,20 +22,44 @@ document.getElementById("equals-sign").addEventListener('click', function () { c
 
 let buffer = 0
 let nCount = 0
+let dCount = -1
 let arg1 = 0
 let arg2 = 0
+let bDecimalPointJustClicked = false
+let bDecimalPointInBuffer = false
 
 function numberClicked(number)
 {
-  console.log("nCount:", nCount)
-  buffer = number + (buffer * 10)
+  if (bDecimalPointJustClicked == false && bDecimalPointInBuffer == false)
+  {
+    console.log("nCount:", nCount)
+    buffer = number + (buffer * 10)
+    nCount++
+  }
+  else if (bDecimalPointJustClicked || bDecimalPointInBuffer)
+  {
+    console.log("rounding number", (-dCount))
+    buffer = math.round(buffer + number * Math.pow(10, dCount), (-dCount))
+    dCount--
+  }
   outputToScreen(buffer)
-  nCount++
 }
 
+// function buildInts(buffer, newNumber){
+
+// }
+
+// function buildDecimals(buffer, newNumber){
+
+// }
 
 function decimalPointClicked()
 {
+  if (!bDecimalPointJustClicked)
+  {
+    bDecimalPointJustClicked = true
+    bDecimalPointInBuffer = true
+  }
   console.log(".");
 }
 
@@ -47,9 +71,9 @@ function functionButtonClicked(button)
   console.log(button)
 }
 
-function clearScreen(){
-  buffer = 0
-  nCount = 0
+function clearScreen()
+{
+  resetAll()
   outputToScreen(0)
 }
 
@@ -58,7 +82,8 @@ function computeFigure()
   console.log("Equals sign pressed")
   value = 88765
   arg1 = value
-  arg = 0
+  arg2 = 0
+  bDecimalPointJustClicked = false
   outputToScreen(value)
 
 }
@@ -118,3 +143,18 @@ sum = addXNumbers(1, 2, 3, 4)
 console.log(sum)
 minus = subtractXNumbers(5, 5, 4, 3, 2, 1)
 console.log(minus)
+
+function resetAll()
+{
+  buffer = 0
+  nCount = 0
+  dCount = -1
+  arg1 = 0
+  arg2 = 0
+  bDecimalPointJustClicked = false
+  bDecimalPointInBuffer = false
+}
+
+// function roundDecimal(input, places){
+//   input = Math.round(input* Math.pow(10, places))/ Math.pow(10, places)
+// }
