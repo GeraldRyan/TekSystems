@@ -24,7 +24,7 @@ document.body.addEventListener('keydown', function (e) { if (e.code == "Digit9" 
 document.getElementById("decimal-point").addEventListener('click', function () { decimalPointClicked() })
 document.body.addEventListener('keydown', function (e) { if (e.code == "NumpadDecimal" || e.code == "Period") decimalPointClicked() })
 document.getElementById("power-btn").addEventListener('click', function () { powerClicked() })
-document.getElementById("log-btn").addEventListener('click', function () { logClicked() })
+document.getElementById("log-btn").addEventListener('click', function () { logClicked(10) })
 document.getElementById("clear-btn").addEventListener('click', function () { startOver() })
 document.body.addEventListener('keydown', function (e) { if (e.code == "KeyC") startOver() })
 document.getElementById("divide-btn").addEventListener('click', function () { functionButtonClicked("/") })
@@ -47,6 +47,9 @@ document.getElementById("e-btn").addEventListener('click', function () { numberC
 
 document.getElementById("rr-btn").addEventListener('click', function () { rr() })
 
+document.getElementById("log2-btn").addEventListener('click', function () { logClicked(2) })
+document.getElementById("ln-btn").addEventListener('click', function () { logClicked(math.e) })
+// document.getElementById("i-btn").addEventListener('click', function () { iButtonClicked() })
 
 
 
@@ -63,6 +66,7 @@ let currentOp = null
 let bComputedNumberOnScreen = false
 let bPowerButtonPressed = false
 let bNegativeNumber = false
+let currentBase = 10
 // Can I do without global variables, or in class based architecture?????????????????
 //????????????????????????????????????????????????????????????????????????????????????
 
@@ -140,10 +144,18 @@ function powerClicked()
   bPowerButtonPressed = true
 }
 
-function logClicked(){
+function iButtonClicked(){
+  let iNum = math.i
+  console.log(iNum)
+  buffer = iNum
+  outputToScreen("i")
+}
+
+function logClicked(base){
   currentOp = "log"
   nCount = 0
   dCount = -1
+  currentBase = base
   // bDecimalPointInBuffer = false
   // bDecimalPointJustClicked = false
   arg1 = buffer
@@ -155,6 +167,7 @@ function startOver()
 {
   arg1 = 0
   bComputedNumberOnScreen = false
+  currentBase = 10
   flushTempValues()
   outputToScreen(0)
   powerClicked = false
@@ -208,8 +221,9 @@ function computeFigure()
       outputToScreen(finalOutput)
       flushTempValues()
     case "log":
-      console.log(arg1)
-      finalOutput = math.round(getBaseLog(arg1),5)
+      console.log("arg1", arg1)
+      console.log("currentBase",currentBase)
+      finalOutput = math.round(getBaseLog(arg1, currentBase),5)
       arg1 = finalOutput
       console.log(`final output ${finalOutput}`)
       outputToScreen(finalOutput)
@@ -226,6 +240,10 @@ function computeFigure()
 function outputToScreen(value)
 {
   // value = numeral(value).format('0.00')
+  if (typeof value == "string"){
+  document.getElementById("output-screen").innerText = value
+  return
+  }
   formattedValue = Intl.NumberFormat(navigator.language, {
     minimumFractionDigits: 2,
     maximumFractionDigits: 20, // Capped off at 20 by JS
@@ -304,6 +322,6 @@ function rr()
   }
 }
 
-function getBaseLog(x, y=2.71828){
-  return Math.log(x) / Math.log(y)
+function getBaseLog(x, currentBase){
+  return Math.log(x) / Math.log(currentBase)
 }
