@@ -1,23 +1,53 @@
 document.getElementById("zero").addEventListener('click', function () { numberClicked(0) })
+document.body.addEventListener('keydown', function (e) { if (e.code == "Digit0" || e.code == "Numpad0") numberClicked(0) })
 document.getElementById("one").addEventListener('click', function () { numberClicked(1) })
+document.body.addEventListener('keydown', function (e) { if (e.code == "Digit1" || e.code == "Numpad1") numberClicked(1) })
 document.getElementById("two").addEventListener('click', function () { numberClicked(2) })
+document.body.addEventListener('keydown', function (e) { if (e.code == "Digit2" || e.code == "Numpad2") numberClicked(2) })
 document.getElementById("three").addEventListener('click', function () { numberClicked(3) })
+document.body.addEventListener('keydown', function (e) { if (e.code == "Digit3" || e.code == "Numpad3") numberClicked(3) })
 document.getElementById("four").addEventListener('click', function () { numberClicked(4) })
+document.body.addEventListener('keydown', function (e) { if (e.code == "Digit4" || e.code == "Numpad4") numberClicked(4) })
 document.getElementById("five").addEventListener('click', function () { numberClicked(5) })
+document.body.addEventListener('keydown', function (e) { if (e.code == "Digit5" || e.code == "Numpad5") numberClicked(5) })
 document.getElementById("six").addEventListener('click', function () { numberClicked(6) })
+document.body.addEventListener('keydown', function (e) { if (e.code == "Digit6" || e.code == "Numpad6") numberClicked(6) })
 document.getElementById("seven").addEventListener('click', function () { numberClicked(7) })
+document.body.addEventListener('keydown', function (e) { if (e.code == "Digit7" || e.code == "Numpad7") numberClicked(7) })
 document.getElementById("eight").addEventListener('click', function () { numberClicked(8) })
+document.body.addEventListener('keydown', function (e) { if (e.code == "Digit8" || e.code == "Numpad8") numberClicked(8) })
 document.getElementById("nine").addEventListener('click', function () { numberClicked(9) })
+document.body.addEventListener('keydown', function (e) { if (e.code == "Digit9" || e.code == "Numpad9") numberClicked(9) })
+
+
+
+document.body.addEventListener('keydown', (e) => { console.log(e.code) })
+
+
+
 document.getElementById("decimal-point").addEventListener('click', function () { decimalPointClicked() })
+document.body.addEventListener('keydown', function (e) { if (e.code == "NumpadDecimal" || e.code == "Period") decimalPointClicked() })
+
 document.getElementById("double-zero").addEventListener('click', function () { doubleZeroClicked() })
 
-document.getElementById("clear-btn").addEventListener('click', function () { clearScreen() })
+document.getElementById("clear-btn").addEventListener('click', function () { startOver() })
+document.body.addEventListener('keydown', function (e) { if (e.code == "KeyC") startOver() })
+
 document.getElementById("divide-btn").addEventListener('click', function () { functionButtonClicked("/") })
+document.body.addEventListener('keydown', function (e) { if (e.code == "NumpadDivide") functionButtonClicked("/") })
+
+
 document.getElementById("multiply-btn").addEventListener('click', function () { functionButtonClicked("*") })
+document.body.addEventListener('keydown', function (e) { if (e.code == "NumpadMultiply") functionButtonClicked("*") })
+
 document.getElementById("add-btn").addEventListener('click', function () { functionButtonClicked("+") })
+document.body.addEventListener('keydown', function (e) { if (e.code == "NumpadAdd") functionButtonClicked("+") })
+
 document.getElementById("subtract-btn").addEventListener('click', function () { functionButtonClicked("-") })
+document.body.addEventListener('keydown', function (e) { if (e.code == "NumpadSubtract") functionButtonClicked("-") })
 
 document.getElementById("equals-sign").addEventListener('click', function () { computeFigure() })
+document.body.addEventListener('keydown', function (e) { if (e.code == "NumpadEnter" || e.code == "Equal") computeFigure() })
 
 
 let buffer = 0
@@ -27,18 +57,18 @@ let arg1 = 0
 let arg2 = 0
 let bDecimalPointJustClicked = false
 let bDecimalPointInBuffer = false
+let currentOp = null
+let bComputedNumberOnScreen = false
 
 function numberClicked(number)
 {
   if (bDecimalPointJustClicked == false && bDecimalPointInBuffer == false)
   {
-    console.log("nCount:", nCount)
     buffer = number + (buffer * 10)
     nCount++
   }
   else if (bDecimalPointJustClicked || bDecimalPointInBuffer)
   {
-    console.log("rounding number", (-dCount))
     buffer = math.round(buffer + number * Math.pow(10, dCount), (-dCount))
     dCount--
   }
@@ -65,26 +95,68 @@ function decimalPointClicked()
 
 function functionButtonClicked(button)
 {
+  console.log(button, " clicked")
   nCount = 0
-  arg1 = buffer
+  dCount = -1
+  bDecimalPointInBuffer = false
+  bDecimalPointJustClicked = false
+  if (bComputedNumberOnScreen)
+  {
+    arg2 = buffer
+  }
+  else
+  {
+    arg1 = buffer
+  }
   buffer = 0
-  console.log(button)
+  currentOp = button
 }
 
-function clearScreen()
+function startOver()
 {
-  resetAll()
+  arg1 = 0
+  bComputedNumberOnScreen = false
+  flushTempValues()
   outputToScreen(0)
 }
 
 function computeFigure()
 {
   console.log("Equals sign pressed")
-  value = 88765
-  arg1 = value
+  arg2 = buffer
+  let finalOutput = 0
+  bComputedNumberOnScreen = true
+  switch (currentOp)
+  {
+    case null:
+      return;
+    case "+":
+      console.log(`${currentOp} pressed`)
+      finalOutput = addTwoNumbers(arg1, arg2)
+      arg1 = finalOutput
+      console.log(`final output ${finalOutput}`)
+      outputToScreen(finalOutput)
+      flushTempValues()
+      break;
+    case "-":
+      finalOutput = subtractTwoNumbers(arg1, arg2)
+      arg1 = finalOutput
+      console.log(`final output ${finalOutput}`)
+      outputToScreen(finalOutput)
+      flushTempValues()
+      break;
+    case "/":
+
+      break;
+    case "*":
+
+      break;
+  }
+  // value = 88765
+  arg1 = finalOutput
   arg2 = 0
   bDecimalPointJustClicked = false
-  outputToScreen(value)
+  outputToScreen(finalOutput)
 
 }
 
@@ -144,17 +216,21 @@ console.log(sum)
 minus = subtractXNumbers(5, 5, 4, 3, 2, 1)
 console.log(minus)
 
-function resetAll()
+// function readyForNextRound(){
+//   buffer = 0
+//   nCount = 0
+//   dCount = 0
+//   arg2 = 0
+
+// }
+
+function flushTempValues()
 {
   buffer = 0
   nCount = 0
   dCount = -1
-  arg1 = 0
   arg2 = 0
   bDecimalPointJustClicked = false
   bDecimalPointInBuffer = false
+  currentOp = null
 }
-
-// function roundDecimal(input, places){
-//   input = Math.round(input* Math.pow(10, places))/ Math.pow(10, places)
-// }
