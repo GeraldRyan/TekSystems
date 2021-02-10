@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script>
+		var Instructor = function (fName, lName, cT=[]){
+			this.firstName = fName
+			this.lastName = lName
+			this.classTeaching = cT
+			this.employer = "TEK Global"
+			this.info = function (){
+				console.log(this.firstName, this.lastName, "is employed by", this.employer)
+			}
+		}
+var Young = new Instructor("Young", "Wook", ["Java", "Javascript"])
+console.log(Young)
+Young.info()
+var Dan = new Instructor("dan", "Anderson" )
+	</script>
+</head>
+<body>
+​
+</body>
+</html>
