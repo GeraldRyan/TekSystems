@@ -29,7 +29,10 @@ function findWords()
   {
     populateDictionary(WordDictionary)
   }
-  searchDictionaryForWord(word)
+  let entry = searchDictionaryForWord(word)
+  if (!entry){
+    alert("Word not found in dictionary")
+  }
 }
 
 
