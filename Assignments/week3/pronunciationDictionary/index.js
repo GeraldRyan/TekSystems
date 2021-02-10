@@ -17,7 +17,7 @@ function findWords()
     alert("Enter just one word")
     return
   }
-  word = splitWords[0]
+  word = splitWords[0].toLowerCase()
   if (validateString(word))
   {
     alert("Enter words without symbols or numbers except apstrophies (')")
@@ -30,7 +30,8 @@ function findWords()
     populateDictionary(WordDictionary)
   }
   let entry = searchDictionaryForWord(word)
-  if (!entry){
+  if (entry == [])
+  {
     alert("Word not found in dictionary")
   }
 }
@@ -39,9 +40,23 @@ function findWords()
 function searchDictionaryForWord(word, dictionary)
 {
 
+  if (false) // not found. Implement me
+  {
+    return []
+  }
+
   // how do i open a file? 
   // should I read once, populate array? I think so, then can re-use for new function calls
+  let data = {}
+  data['pronunciation'] = "Fill me up"
+  data['identical'] = ["Fill me up"]
+  data['replacePhoneme'] = ["Fill me up"]
+  data['addPhoneme'] = ["Fill me up"]
+  data['addPhoneme'] = ["Fill me up"]
+  data['removePhoneme'] = ["fill me up"]
 
+
+  return data
 }
 
 
