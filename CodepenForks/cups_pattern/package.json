@@ -1,0 +1,19 @@
+{
+  "name": "cups_pattern",
+  "version": "1.0.0",
+  "description": "Fork of Cups code from codepen.io",
+  "main": "index.html",
+  "dependencies": {
+    "node-sass": "^5.0.0",
+    "pug": "^3.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "pwd",
+    "scss": "node-sass -o css",
+    "scss-watch": "node-sass --watch -o css",
+    "scss-compile": 
+  },
+  "author": "",
+  "license": "ISC"
+}
