@@ -47,13 +47,13 @@ function searchDictionaryForWord(word, dictionary, hashMap)
 {
   let matchResults = {}
   let identicals = findIdenticals(word, dictionary, hashMap)
-  // let replacedPhonemes = findReplacedPhonemes(word, dictionary)
+  let replacedPhonemes = findReplacedPhonemes(word, dictionary, hashMap)
   // let addedPhonemes = findAddedPhonemes(word, dictionary)
   // let removedPhonemes = findRemvedPhonemes(word, dictionary)
 
   // matchResults['pronunciation'] = dictionary[word]
   matchResults['identicals'] = identicals
-  matchResults['replacePhoneme'] = []
+  matchResults['replacePhoneme'] = replacedPhonemes
   // matchResults['addPhoneme'] = addedPhonemes
   // matchResults['removePhoneme'] = removedPhonemes
   return matchResults
@@ -63,18 +63,63 @@ function findIdenticals(word, dictionary, hashMap)
 {
   return hashMap[dictionary[word].hashCode(Object.keys(dictionary).length * 4)]
 }
-// function findReplacedPhonemes(word, dictionary, hashMap)
-// {
-//   let matches = []
-//   let pronunciation = dictionary[word]
-//   let pronunciationArray = pronunciation.split(" ")
-//   console.log("word pronunciaion array", pronunciationArray )
+function findReplacedPhonemes(word, dictionary, hashMap)
+{
+  let matches = []
+  let pronunciation = dictionary[word]
+  let pronunciationArray = pronunciation.split(" ")
+  let phone
+  // console.log("word pronunciaion array", pronunciationArray )
+  pronunciationArray.forEach((v, i, a) =>
+  {
+    phonemeList.forEach((vv, ii, aa) =>
+    {
+      let phonemeToSubIn = vv
+      let sequenceToTry = pronunciationArray.slice()
+      sequenceToTry[i] = phonemeToSubIn
+      // console.log("Sequence to Try", sequenceToTry)
+      let sequenceString = sequenceToTry.join(" ")
+      // console.log(sequenceString)
+      let hashOfString = sequenceString.hashCode(Object.keys(dictionary).length * 4)
+      let hashMapReturn = hashMap[hashOfString]
+      if (hashMapReturn !== undefined)
+      {
+        hashMapReturn.forEach((vvv, iii, aaa) =>
+        {
+          // console.log("Matching value?",vvv)
+          let key = getObjectsKey(vvv)
+          // console.log("Possible Key", key)
+          // console.log(`Dictionary[key] ${dictionary[key]}, sequenceString${sequenceString}`)
+          if (checkIfIdentical(dictionary[key], sequenceString))
+          {
+            // console.log("This is the matched key:", key)
+            matches.push(key)
+          }
+        })
 
-//   pronunciationArray.forEach()
- 
+      }
+    })
+  })
+  console.log(matches)
+  return matches
+}
 
-//   return matches
-// }
+function getObjectsKey(obj)
+{
+  for (key in obj)
+  {
+    return key
+  }
+}
+function checkIfIdentical(string1, string2)
+{
+  if (string1 === string2)
+  {
+    return true
+  }
+  return false
+}
+
 
 function appendMatches(word, dictionary, matches)
 {
@@ -95,7 +140,7 @@ function appendMatches(word, dictionary, matches)
     {
       for (const key in v)
       {
-        console.log("Key", key)
+        // console.log("Key", key)
         let identical = document.createElement("span")
         identical.innerText = key + " "
         ws.appendChild(identical)
@@ -109,15 +154,11 @@ function appendMatches(word, dictionary, matches)
     let rp = document.createElement("h4")
     rp.innerText = "REPLACED PHONEME: "
     ws.appendChild(rp)
-    matches["rp"].forEach((v, i, a) =>
+    matches["replacePhoneme"].forEach((v, i, a) =>
     {
-      for (const key in v)
-      {
-        console.log("Key", key)
         let rp = document.createElement("span")
-        rp.innerText = key + " "
+        rp.innerText = v + " "
         ws.appendChild(rp)
-      }
     })
   }
 }
@@ -217,14 +258,19 @@ function findWordsHashIndex(word, hashMap)
   }
 }
 
-function getListOfPhonemes(dictionary){
-  phonemeDictionary = {}
-  dictionary.forEach((v,i,a)=>{
-    v.split("  ")[1].split(' ').forEach((v,i,a)=>{
-      if (!(v in phonemeDictionary)){
+function getListOfPhonemes(dictionary)
+{
+  let phonemeDictionary = {}
+  dictionary.forEach((v, i, a) =>
+  {
+    v.split("  ")[1].split(' ').forEach((v, i, a) =>
+    {
+      if (!(v in phonemeDictionary))
+      {
         phonemeDictionary[v] = v
       }
     })
   })
   console.log("phoneme dictionary", phonemeDictionary)
+  phonemeList = Object.keys(phonemeDictionary)
 } 
