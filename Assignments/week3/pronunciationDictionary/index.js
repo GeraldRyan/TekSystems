@@ -18,7 +18,7 @@ function findWords()
     return
   }
   word = splitWords[0].toLowerCase()
-  if (validateString(word))
+  if (validateInputString(word))
   {
     alert("Enter words without symbols or numbers except apstrophies (')")
     return;
@@ -29,6 +29,11 @@ function findWords()
   {
     // let rawFileContents = readTextFile()
     populateDictionary(wordDictionary)
+    dictKeys = Object.keys(wordDictionary)
+  }
+  console.log("Word dictionary Created. Length =", dictKeys.length)
+  if (dictKeys.indexOf(word)===-1){
+    alert(`Your word ${word} was not found in the dictionary. Try another word`)
   }
   let entry = searchDictionaryForWord(word)
   if (entry == [])
@@ -70,27 +75,37 @@ function populateDictionary(emptyDictionary)
   {
     return /[a-zA-Z']/.test(l[0])
   })
-
-    console.log(wordEntries)
-
-}
-function validateString(string)
-    {
-      const regexPattern = new RegExp("[^a-zA-Z']") // Also works
-      if (/[^a-zA-Z']/.test(string))
-      {
-        return true;
-      }
-      return false;
+  wordEntries.forEach((v, i, a) =>
+  {
+    // console.log(v.split("  "))
+    // symbolRegex = "\(\)[1-9]"
+    var x = v.split("  ")
+    if (validateDictString(x[0])){
+      emptyDictionary[x[0].toLowerCase()] = x[1]
     }
+  })
+}
+function validateInputString(string)
+{
+  const regexPattern = new RegExp("[^a-zA-Z']") // Also works
+  if (/[^a-zA-Z']/.test(string))
+  {
+    return true;
+  }
+  return false;
+}
+
+function validateDictString(string){
+  return !(/[(\-)0-9]+/.test(string)) // returns true if found, so bad
+}
 
 
 function readTextFile(file = "./cmu.txt")
-    {
-      var rawFile = new XMLHttpRequest();
-      rawFile.open("GET", file, false);
-      rawFile.send(null);
-      return rawFile.responseText
-    }
+{
+  var rawFile = new XMLHttpRequest();
+  rawFile.open("GET", file, false);
+  rawFile.send(null);
+  return rawFile.responseText
+}
 
 
