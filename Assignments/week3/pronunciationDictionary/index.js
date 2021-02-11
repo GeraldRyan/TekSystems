@@ -3,6 +3,7 @@ document.body.addEventListener("keypress", function (e) { if (e.key == "Enter") 
 
 let wordDictionary = {}
 let hashMap = []
+let phonemeList = []
 function findWords()
 {
   // alert("Looking for some words eh? ")
@@ -46,13 +47,13 @@ function searchDictionaryForWord(word, dictionary, hashMap)
 {
   let matchResults = {}
   let identicals = findIdenticals(word, dictionary, hashMap)
-  // let subbedPhonemes = findSubbedPhonemes(word, dictionary)
+  // let replacedPhonemes = findReplacedPhonemes(word, dictionary)
   // let addedPhonemes = findAddedPhonemes(word, dictionary)
   // let removedPhonemes = findRemvedPhonemes(word, dictionary)
 
   // matchResults['pronunciation'] = dictionary[word]
   matchResults['identicals'] = identicals
-  // matchResults['replacePhoneme'] = subbedPhonemes
+  matchResults['replacePhoneme'] = []
   // matchResults['addPhoneme'] = addedPhonemes
   // matchResults['removePhoneme'] = removedPhonemes
   return matchResults
@@ -62,7 +63,18 @@ function findIdenticals(word, dictionary, hashMap)
 {
   return hashMap[dictionary[word].hashCode(Object.keys(dictionary).length * 4)]
 }
+// function findReplacedPhonemes(word, dictionary, hashMap)
+// {
+//   let matches = []
+//   let pronunciation = dictionary[word]
+//   let pronunciationArray = pronunciation.split(" ")
+//   console.log("word pronunciaion array", pronunciationArray )
 
+//   pronunciationArray.forEach()
+ 
+
+//   return matches
+// }
 
 function appendMatches(word, dictionary, matches)
 {
@@ -89,11 +101,25 @@ function appendMatches(word, dictionary, matches)
         ws.appendChild(identical)
       }
     })
-    // let identicals = document.createElement("h4")
-    // identicals.innerText = matches["identicals"]
-
   }
 
+
+  if (matches["replacePhoneme"].length > 0)
+  {
+    let rp = document.createElement("h4")
+    rp.innerText = "REPLACED PHONEME: "
+    ws.appendChild(rp)
+    matches["rp"].forEach((v, i, a) =>
+    {
+      for (const key in v)
+      {
+        console.log("Key", key)
+        let rp = document.createElement("span")
+        rp.innerText = key + " "
+        ws.appendChild(rp)
+      }
+    })
+  }
 }
 
 
@@ -136,6 +162,7 @@ function populateDictionary(emptyDictionary)
       emptyDictionary[x[0].toLowerCase()] = x[1]
     }
   })
+  getListOfPhonemes(wordEntries)
 }
 function validateInputString(string)
 {
@@ -188,5 +215,16 @@ function findWordsHashIndex(word, hashMap)
     alert(`Your word ${word} was not found in the dictionary. Try another word`)
     return;
   }
-
 }
+
+function getListOfPhonemes(dictionary){
+  phonemeDictionary = {}
+  dictionary.forEach((v,i,a)=>{
+    v.split("  ")[1].split(' ').forEach((v,i,a)=>{
+      if (!(v in phonemeDictionary)){
+        phonemeDictionary[v] = v
+      }
+    })
+  })
+  console.log("phoneme dictionary", phonemeDictionary)
+} 
