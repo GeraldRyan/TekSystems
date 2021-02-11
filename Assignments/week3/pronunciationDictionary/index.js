@@ -3,6 +3,7 @@ document.body.onload = ()=>{loadEverything()}
 document.getElementById("find-btn").addEventListener("click", () => { findWords() })
 document.body.addEventListener("keypress", function (e) { if (e.key == "Enter") { findWords() } })
 
+// Globals
 let wordDictionary = {}
 let hashMap = []
 let phonemeList = []
@@ -42,7 +43,6 @@ function findWords()
   {
     // let rawFileContents = readTextFile()
     populateDictionary()
-    dictKeys = Object.keys(wordDictionary)
     console.log("Word dictionary Created. Length =", dictKeys.length)
     hashDictionaryValues(wordDictionary)
     console.log("Hashmap of dictionary values created")
@@ -77,7 +77,7 @@ function findRemovedPhonemes(word, dictionary, hashMap){
   for (let i = 0; i<phonemeList.length; i++){
     let phonemeClone = phonemeList.splice(i,1)
     phonemeClone = phonemeClone.join(" ")
-    hash = phonemeClone.hashCode(Object.keys(dictionary).length*4)
+    hash = phonemeClone.hashCode(dictKeys.length*4)
     if (hashMap[hash] !== undefined){
       hashMap[hash].forEach((o,i,a)=>{
         let key = getObjectsKey(o)
@@ -95,10 +95,10 @@ return matches
 function findAddedPhonemes(word, dictionary, hashMap)
 {
   findWordsHashIndex("bears",hashMap)
+  // console.log("Hash map of bears", hashMap[98143])
   findWordsHashIndex("despairs",hashMap)
 
   let matches = []
-  let keys = Object.keys(dictionary)
   let phonemeSequence = dictionary[word]
   let phonemeSequenceList = phonemeSequence.split(" ")
   // console.log("phoneme sequence list", phonemeSequenceList)
@@ -109,17 +109,11 @@ function findAddedPhonemes(word, dictionary, hashMap)
       let trialPhonemeSequence = phonemeSequenceList.slice()
       // console.log("Old Trial phoneme sequence", trialPhonemeSequence)
       trialPhonemeSequence.splice(i, 0, p)
-      if (i == phonemeSequenceList.length)
-      {
-        // console.log("trialphonemesequence spliced", trialPhonemeSequence)
-      }
+
       // console.log("New Trial Phoneme Sequence", trialPhonemeSequence)
       let stringified = trialPhonemeSequence.join(" ")
-      if (i == phonemeSequenceList.length)
-      {
-        console.log("strinfified", stringified)
-      }
-      let hash = stringified.hashCode(keys.length * 4)
+
+      let hash = stringified.hashCode(dictKeys.length * 4)
       if (hashMap[hash] !== undefined)
       {
         // console.log("stringified", stringified)
@@ -152,7 +146,7 @@ function findAddedPhonemes(word, dictionary, hashMap)
 
 function findIdenticals(word, dictionary, hashMap)
 {
-  return hashMap[dictionary[word].hashCode(Object.keys(dictionary).length * 4)]
+  return hashMap[dictionary[word].hashCode(dictKeys.length * 4)]
 }
 function findReplacedPhonemes(word, dictionary, hashMap)
 {
@@ -171,7 +165,7 @@ function findReplacedPhonemes(word, dictionary, hashMap)
       // console.log("Sequence to Try", sequenceToTry)
       let sequenceString = sequenceToTry.join(" ")
       // console.log(sequenceString)
-      let hashOfString = sequenceString.hashCode(Object.keys(dictionary).length * 4)
+      let hashOfString = sequenceString.hashCode(dictKeys.length * 4)
       let hashMapReturn = hashMap[hashOfString]
       if (hashMapReturn !== undefined)
       {
@@ -285,17 +279,29 @@ function appendMatches(word, dictionary, matches)
 
 function hashDictionaryValues(dictionary)
 {
-  console.log(dictionary)
-  let dictKeys = Object.keys(dictionary)
+  // console.log(dictionary)
+  console.log("DictKeys", dictKeys)
   dictKeys.forEach((v, i, a) =>
   {
+    if (v=="bears"){
+      console.log("BEARS FOUND! At index", i, "Dictionary value is ", dictionary[v])
+    }
     let hashValue = dictionary[v].hashCode(dictKeys.length * 4)
+    if (v=="bears"){
+      console.log("BEARS hash value! At index", hashValue)
+    }
     if (hashMap[hashValue] === undefined)
     {
+      if (v=="bears"){
+        console.log("BEARS entry in hash", hashMap[dictionary[v].hashCode(dictKeys.length*4)])
+      } 
       hashMap[hashValue] = [{ [v]: dictionary[v] }] // 4 times load factor
     }
     else
     {
+      if (v=="bears"){
+        console.log("BEARS entry in hash", hashMap[dictionary[v].hashCode(dictKeys.length*4)])
+      } 
       hashMap[hashValue].push({ [v]: dictionary[v] })
     }
   })
@@ -319,7 +325,7 @@ function populateDictionary()
     var x = v.split("  ")
     if (validateDictString(x[0]))
     {
-      wordDictionary[x[0].toLowerCase()] = x[1]
+      wordDictionary[x[0].toLowerCase()] = x[1].toLowerCase()
     }
   })
   getListOfPhonemes(wordEntries)
@@ -359,15 +365,16 @@ Object.defineProperty(String.prototype, 'hashCode', {
 
 function findWordsHashIndex(word, hashMap)
 {
-  hashMap.forEach((v, i, a) =>
+  hashMap.forEach((subArray, i, a) =>
   {
-    for (const item in v[0])
-    {
-      if (item === word)
-      {
-        console.log(`Word ${word} found at`, i)
+    subArray.forEach((obj)=>{
+      for (key in obj){
+        if (key == word){
+          console.log(`Word ${word} found at index`, i)
+        }
       }
-    }
+    })
+
     
 
   })
@@ -387,7 +394,7 @@ function getListOfPhonemes(dictionary)
     {
       if (!(v in phonemeDictionary))
       {
-        phonemeDictionary[v] = v
+        phonemeDictionary[v.toLowerCase()] = v.toLowerCase()
       }
     })
   })
