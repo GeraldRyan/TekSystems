@@ -1,5 +1,4 @@
-document.body.onload = ()=>{loadEverything()}
-
+document.body.onload = () => { loadEverything() }
 document.getElementById("find-btn").addEventListener("click", () => { findWords() })
 document.body.addEventListener("keypress", function (e) { if (e.key == "Enter") { findWords() } })
 
@@ -9,7 +8,8 @@ let hashMap = []
 let phonemeList = []
 let dictKeys = []
 
-function loadEverything(){
+function loadEverything()
+{
   populateDictionary()
   dictKeys = Object.keys(wordDictionary)
   console.log("Word dictionary Created. Length =", dictKeys.length)
@@ -41,13 +41,11 @@ function findWords()
 
   if (Object.keys(wordDictionary).length === 0)
   {
-    // let rawFileContents = readTextFile()
     populateDictionary()
     console.log("Word dictionary Created. Length =", dictKeys.length)
     hashDictionaryValues(wordDictionary)
     console.log("Hashmap of dictionary values created")
   }
-  // findWordsHashIndex("dear", hashMap) // GOOD DEBUGGING TOOL
   let matches = searchDictionaryForWord(word, wordDictionary, hashMap)
   console.log("matches returned", matches)
   appendMatches(word, wordDictionary, matches)
@@ -61,8 +59,6 @@ function searchDictionaryForWord(word, dictionary, hashMap)
   let replacedPhonemes = findReplacedPhonemes(word, dictionary, hashMap)
   let addedPhonemes = findAddedPhonemes(word, dictionary, hashMap)
   let removedPhonemes = findRemovedPhonemes(word, dictionary, hashMap)
-
-  // matchResults['pronunciation'] = dictionary[word]
   matchResults['identicals'] = identicals
   matchResults['replacePhoneme'] = replacedPhonemes
   matchResults['addPhoneme'] = addedPhonemes
@@ -70,87 +66,60 @@ function searchDictionaryForWord(word, dictionary, hashMap)
   return matchResults
 }
 
-function findRemovedPhonemes(word, dictionary, hashMap){
+function findRemovedPhonemes(word, dictionary, hashMap)
+{
   matches = []
   let phonemeList = dictionary[word]
   phonemeList = phonemeList.split(" ")
-  for (let i = 0; i<phonemeList.length; i++){
-    let phonemeClone = phonemeList.splice(i,1)
+  for (let i = 0; i < phonemeList.length; i++)
+  {
+    let phonemeClone = phonemeList.splice(i, 1)
     phonemeClone = phonemeClone.join(" ")
-    hash = phonemeClone.hashCode(dictKeys.length*4)
-    if (hashMap[hash] !== undefined){
-      hashMap[hash].forEach((o,i,a)=>{
+    hash = phonemeClone.hashCode(dictKeys.length * 4)
+    if (hashMap[hash] !== undefined)
+    {
+      hashMap[hash].forEach((o, i, a) =>
+      {
         let key = getObjectsKey(o)
         console.log("Dictionary[key] phoneme clone", dictionary[key], phonemeClone)
-        if (checkIfIdentical(dictionary[key], phonemeClone)){
+        if (checkIfIdentical(dictionary[key], phonemeClone))
+        {
           matches.push(key)
         }
       })
     }
   }
-return matches
+  return matches
 }
 
 
 function findAddedPhonemes(word, dictionary, hashMap)
 {
-  findWordsHashIndex("bears",hashMap)
-  console.log(hashMap[418335])
-  // console.log("Hash map of bears", hashMap[98143])
-  findWordsHashIndex("despairs",hashMap)
+  findWordsHashIndex("bears", hashMap)
+  findWordsHashIndex("despairs", hashMap)
 
   let matches = []
   let phonemeSequence = dictionary[word]
   let phonemeSequenceList = phonemeSequence.split(" ")
-  // console.log("phoneme sequence list", phonemeSequenceList)
   for (let i = 0; i <= phonemeSequenceList.length; i++)
   {
-    phonemeList.forEach((p, ind) => // all the items in the list
+    phonemeList.forEach((p, ind) => 
     {
       let trialPhonemeSequence = phonemeSequenceList.slice()
-      // console.log("Old Trial phoneme sequence", trialPhonemeSequence)
       trialPhonemeSequence.splice(i, 0, p) // replace each 0 with p, replace each 
       let stringified = trialPhonemeSequence.join(" ")
       stringified = stringified.replace("\r", "")
-      if (p == "z"){
-        console.log(trialPhonemeSequence)
-        let bearstring = 'b eh1 r z'
-        console.log("SHould be adding 'z' at ", i, "so we got", trialPhonemeSequence, "and stringified", stringified)
-        console.log(`String|${dictionary['bears']}| length ${dictionary['bears'].length} should equal |${stringified}| length ${stringified.length}: ${dictionary['bears'] == stringified} and ${bearstring == stringified}`);
-        console.log(`Types: ${typeof dictionary['bears']} and ${typeof stringified}` )
-
-        stringified.split("").map(c => {
-          console.log(c.charCodeAt(0))
-        })
-        console.log("New word")
-        bearstring.split("").map(c => {
-          console.log(c.charCodeAt(0))
-        })
-        console.log(stringified==bearstring)
-      }
-      // console.log("New Trial Phoneme Sequence", trialPhonemeSequence)
-      if (stringified == "b eh1 r z"){  //THIS IS WHERE ITS BROKEN
-        console.log("Bears stringified searching!!!!!!!!!!!!")
-      }
-
       let hash = stringified.hashCode(dictKeys.length * 4)
       if (hashMap[hash] !== undefined)
       {
         hashMap[hash].forEach((o) =>
         {
-          // console.log("O", o)
-          // console.log("Dictionary 0", dictionary[o])
           let key = getObjectsKey(o)
-          // console.log("key",key)
           if (checkIfIdentical(dictionary[key], stringified))
           {
             matches.push(key)
           }
-
         })
-        // console.log("Match maybe found", stringified)
-        // console.log(hashMap[hash])
-        // matches.push(stringified)
       }
     })
   }
@@ -168,8 +137,6 @@ function findReplacedPhonemes(word, dictionary, hashMap)
   let matches = []
   let pronunciation = dictionary[word]
   let pronunciationArray = pronunciation.split(" ")
-
-  // console.log("word pronunciaion array", pronunciationArray )
   pronunciationArray.forEach((v, i, a) =>
   {
     phonemeList.forEach((vv, ii, aa) =>
@@ -177,30 +144,22 @@ function findReplacedPhonemes(word, dictionary, hashMap)
       let phonemeToSubIn = vv
       let sequenceToTry = pronunciationArray.slice()
       sequenceToTry[i] = phonemeToSubIn
-      // console.log("Sequence to Try", sequenceToTry)
       let sequenceString = sequenceToTry.join(" ")
-      // console.log(sequenceString)
       let hashOfString = sequenceString.hashCode(dictKeys.length * 4)
       let hashMapReturn = hashMap[hashOfString]
       if (hashMapReturn !== undefined)
       {
         hashMapReturn.forEach((vvv, iii, aaa) =>
         {
-          // console.log("Matching value?",vvv)
           let key = getObjectsKey(vvv)
-          // console.log("Possible Key", key)
-          // console.log(`Dictionary[key] ${dictionary[key]}, sequenceString${sequenceString}`)
           if (checkIfIdentical(dictionary[key], sequenceString))
           {
-            // console.log("This is the matched key:", key)
             matches.push(key)
           }
         })
-
       }
     })
   })
-  // console.log(matches)
   return matches
 }
 
@@ -240,7 +199,6 @@ function appendMatches(word, dictionary, matches)
     {
       for (const key in v)
       {
-        // console.log("Key", key)
         let identical = document.createElement("span")
         identical.innerText = key + " "
         ws.appendChild(identical)
@@ -252,7 +210,7 @@ function appendMatches(word, dictionary, matches)
   if (matches["replacePhoneme"].length > 0)
   {
     let rp = document.createElement("h4")
-    rp.innerText = "REPLACED PHONEME: "
+    rp.innerText = "REPLACED PHONEMES: "
     ws.appendChild(rp)
     matches["replacePhoneme"].forEach((v, i, a) =>
     {
@@ -261,11 +219,17 @@ function appendMatches(word, dictionary, matches)
       ws.appendChild(rp)
     })
   }
+  else
+  {
+    let rp = document.createElement("h4")
+    rp.innerText = "RMOVED PHONEMES: No matches found"
+    ws.appendChild(rp)
+  }
 
   if (matches["addPhoneme"].length > 0)
   {
     let ap = document.createElement("h4")
-    ap.innerText = "ADDED PHONEME: "
+    ap.innerText = "ADDED PHONEMES: "
     ws.appendChild(ap)
     matches["addPhoneme"].forEach((v, i, a) =>
     {
@@ -274,12 +238,17 @@ function appendMatches(word, dictionary, matches)
       ws.appendChild(ap)
     })
   }
-
+  else
+  {
+    let rp = document.createElement("h4")
+    rp.innerText = "ADDED PHONEMES: No matches found"
+    ws.appendChild(rp)
+  }
 
   if (matches["removePhoneme"].length > 0)
   {
     let rp = document.createElement("h4")
-    rp.innerText = "REMOVED PHONEME: "
+    rp.innerText = "REMOVED PHONEMES: "
     ws.rppendChild(rp)
     matches["removePhoneme"].forEach((v, i, a) =>
     {
@@ -288,45 +257,36 @@ function appendMatches(word, dictionary, matches)
       ws.appendChild(rp)
     })
   }
+  else
+  {
+    let rp = document.createElement("h4")
+    rp.innerText = "REMOVED PHONEMES: No matches found"
+    ws.appendChild(rp)
+  }
 }
 
 
 
 function hashDictionaryValues(dictionary)
 {
-  // console.log(dictionary)
-  console.log("DictKeys", dictKeys)
   dictKeys.forEach((v, i, a) =>
   {
-    if (v=="bears"){
-      console.log("BEARS FOUND! At index", i, "Dictionary value is ", dictionary[v])
-    }
+
     let hashValue = dictionary[v].hashCode(dictKeys.length * 4)
-    if (v=="bears"){
-      console.log("BEARS hash value! At index", hashValue)
-    }
     if (hashMap[hashValue] === undefined)
     {
-      if (v=="bears"){
-        console.log("BEARS entry in hash", hashMap[dictionary[v].hashCode(dictKeys.length*4)])
-      } 
       hashMap[hashValue] = [{ [v]: dictionary[v] }] // 4 times load factor
     }
     else
     {
-      if (v=="bears"){
-        console.log("BEARS entry in hash", hashMap[dictionary[v].hashCode(dictKeys.length*4)])
-      } 
       hashMap[hashValue].push({ [v]: dictionary[v] })
     }
   })
-  // idenicals will be duplicates. 
 }
 
 function populateDictionary()
 {
   let rawFileContents = readTextFile()
-  // format tile contents
   let linesDictionary = rawFileContents.split("\n")
   regex = "[A-Za-z']";
   let wordEntries = linesDictionary.filter(l =>
@@ -335,7 +295,6 @@ function populateDictionary()
   })
   wordEntries.forEach((v, i, a) =>
   {
-    // console.log(v.split("  "))
     // symbolRegex = "\(\)[1-9]"
     var x = v.split("  ")
     if (validateDictString(x[0]))
@@ -382,15 +341,18 @@ function findWordsHashIndex(word, hashMap)
 {
   hashMap.forEach((subArray, i, a) =>
   {
-    subArray.forEach((obj)=>{
-      for (key in obj){
-        if (key == word){
+    subArray.forEach((obj) =>
+    {
+      for (key in obj)
+      {
+        if (key == word)
+        {
           console.log(`Word ${word} found at index`, i)
         }
       }
     })
 
-    
+
 
   })
   if (dictKeys.indexOf(word) === -1)
