@@ -1,7 +1,7 @@
 document.getElementById("find-btn").addEventListener("click", () => { findWords() })
 document.body.addEventListener("keypress", function (e) { if (e.key == "Enter") { findWords() } })
 
-let WordDictionary = {}
+let wordDictionary = {}
 function findWords()
 {
   // alert("Looking for some words eh? ")
@@ -25,28 +25,28 @@ function findWords()
   }
   console.log("You entered", word)
 
-  if (Object.keys(dictionary).length === 0)
+  if (Object.keys(wordDictionary).length === 0)
   {
-    populateDictionary(WordDictionary)
+    // let rawFileContents = readTextFile()
+    populateDictionary(wordDictionary)
   }
   let entry = searchDictionaryForWord(word)
   if (entry == [])
   {
     alert("Word not found in dictionary")
   }
+  // Do something. Return values
 }
 
 
 function searchDictionaryForWord(word, dictionary)
 {
 
-  if (false) // not found. Implement me
+  if (false) // if word not not found.
   {
     return []
   }
 
-  // how do i open a file? 
-  // should I read once, populate array? I think so, then can re-use for new function calls
   let data = {}
   data['pronunciation'] = "Fill me up"
   data['identical'] = ["Fill me up"]
@@ -62,33 +62,35 @@ function searchDictionaryForWord(word, dictionary)
 
 function populateDictionary(emptyDictionary)
 {
-
-}
-
-function validateString(string)
-{
-  // const regexPattern = new RegExp("[^a-zA-Z']") // Also works
-  if (/[^a-zA-Z']/.test(string))
+  let rawFileContents = readTextFile()
+  // format tile contents
+  let linesDictionary = rawFileContents.split("\n")
+  regex = "[A-Za-z']";
+  let wordEntries = linesDictionary.filter(l =>
   {
-    return true;
-  }
-  return false;
+    return /[a-zA-Z']/.test(l[0])
+  })
+
+    console.log(wordEntries)
+
 }
+function validateString(string)
+    {
+      const regexPattern = new RegExp("[^a-zA-Z']") // Also works
+      if (/[^a-zA-Z']/.test(string))
+      {
+        return true;
+      }
+      return false;
+    }
 
 
 function readTextFile(file = "./cmu.txt")
-{
-  var rawFile = new XMLHttpRequest();
-  rawFile.open("GET", file, false);
-  rawFile.onreadystatechange = function ()
-  {
-    if (rawFile.readyState === 4)
     {
-      if (rawFile.status === 200 || rawFile.status == 0)
-      {
-        var allText = rawFile.responseText;
-      }
+      var rawFile = new XMLHttpRequest();
+      rawFile.open("GET", file, false);
+      rawFile.send(null);
+      return rawFile.responseText
     }
-  }
-  rawFile.send(null);
-}
+
+
