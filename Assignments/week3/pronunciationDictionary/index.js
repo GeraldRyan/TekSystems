@@ -30,9 +30,10 @@ function findWords()
     // let rawFileContents = readTextFile()
     populateDictionary(wordDictionary)
     dictKeys = Object.keys(wordDictionary)
+    console.log("Word dictionary Created. Length =", dictKeys.length)
   }
-  console.log("Word dictionary Created. Length =", dictKeys.length)
-  if (dictKeys.indexOf(word)===-1){
+  if (dictKeys.indexOf(word) === -1)
+  {
     alert(`Your word ${word} was not found in the dictionary. Try another word`)
   }
   let entry = searchDictionaryForWord(word)
@@ -80,7 +81,8 @@ function populateDictionary(emptyDictionary)
     // console.log(v.split("  "))
     // symbolRegex = "\(\)[1-9]"
     var x = v.split("  ")
-    if (validateDictString(x[0])){
+    if (validateDictString(x[0]))
+    {
       emptyDictionary[x[0].toLowerCase()] = x[1]
     }
   })
@@ -95,7 +97,8 @@ function validateInputString(string)
   return false;
 }
 
-function validateDictString(string){
+function validateDictString(string)
+{
   return !(/[(\-)0-9]+/.test(string)) // returns true if found, so bad
 }
 
