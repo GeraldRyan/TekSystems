@@ -36,30 +36,34 @@ function findWords()
     console.log("Hashmap Created")
     console.log(hashMap)
   }
-findWordsHashIndex("dear", hashMap)
-  let matches = searchDictionaryForWord(word)
+  findWordsHashIndex("dear", hashMap)
+  let matches = searchDictionaryForWord(word, wordDictionary, hashMap)
   // Do something. Return values
 }
 
 
-function searchDictionaryForWord(word, dictionary)
+function searchDictionaryForWord(word, dictionary, hashMap)
 {
-  // let matchResults = {}
-  // let identicals = findIdenticals(word, dictionary)
+  let matchResults = {}
+  let identicals = findIdenticals(word, dictionary, hashMap)
   // let subbedPhonemes = findSubbedPhonemes(word, dictionary)
   // let addedPhonemes = findAddedPhonemes(word, dictionary)
   // let removedPhonemes = findRemvedPhonemes(word, dictionary)
 
   // matchResults['pronunciation'] = dictionary[word]
-  // matchResults['identical'] = identicals
+  matchResults['identical'] = identicals
   // matchResults['replacePhoneme'] = subbedPhonemes
   // matchResults['addPhoneme'] = addedPhonemes
   // matchResults['removePhoneme'] = removedPhonemes
-  // return matchResults
+  return matchResults
 }
 
-function findIdenticals(word, dictionary)
+function findIdenticals(word, dictionary, hashMap)
 {
+  let arrayOfIdenticals = []
+  let entries = hashMap[dictionary[word].hashCode(Object.keys(dictionary).length *4)]
+  console.log(entries)
+
 
 }
 
@@ -74,10 +78,11 @@ function hashDictionaryValues(dictionary)
     let hashValue = dictionary[v].hashCode(dictKeys.length * 4)
     if (hashMap[hashValue] === undefined)
     {
-      hashMap[hashValue] = [{[v]:dictionary[v]}] // 4 times load factor
+      hashMap[hashValue] = [{ [v]: dictionary[v] }] // 4 times load factor
     }
-    else{
-      hashMap[hashValue].push({[v]:dictionary[v]})
+    else
+    {
+      hashMap[hashValue].push({ [v]: dictionary[v] })
     }
   })
   // idenicals will be duplicates. 
@@ -131,14 +136,18 @@ function validateDictString(string)
 Object.defineProperty(String.prototype, 'hashCode', {
   value: function (ll = 1000)
   {
-    return (Math.abs(this.split("").reduce(function (a, b) { a = ((a << 5) - a) + b.charCodeAt(0); return a & a }, 0)) ) % ll
+    return (Math.abs(this.split("").reduce(function (a, b) { a = ((a << 5) - a) + b.charCodeAt(0); return a & a }, 0))) % ll
   }
-}); 
+});
 
-function findWordsHashIndex(word, hashMap){
-  hashMap.forEach((v,i,a)=>{
-    for (const item in v[0]){
-      if (item === word){
+function findWordsHashIndex(word, hashMap)
+{
+  hashMap.forEach((v, i, a) =>
+  {
+    for (const item in v[0])
+    {
+      if (item === word)
+      {
         console.log(`Word ${word} found at`, i)
       }
     }
