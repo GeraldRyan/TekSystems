@@ -13,7 +13,7 @@ function loadEverything()
   populateDictionary()
   dictKeys = Object.keys(wordDictionary)
   console.log("Word dictionary Created. Length =", dictKeys.length)
-  hashDictionaryValues(wordDictionary)
+  createHashTable(wordDictionary)
   console.log("Hashmap of dictionary values created")
 }
 function findWords()
@@ -43,7 +43,7 @@ function findWords()
   {
     populateDictionary()
     console.log("Word dictionary Created. Length =", dictKeys.length)
-    hashDictionaryValues(wordDictionary)
+    createHashTable(wordDictionary)
     console.log("Hashmap of dictionary values created")
   }
   let matches = searchDictionaryForWord(word, wordDictionary, hashMap)
@@ -68,21 +68,41 @@ function searchDictionaryForWord(word, dictionary, hashMap)
 
 function findRemovedPhonemes(word, dictionary, hashMap)
 {
+  findWordsHashIndex('bear', hashMap)
   matches = []
   let phonemeList = dictionary[word]
   phonemeList = phonemeList.split(" ")
+  console.log(phonemeList)
   for (let i = 0; i < phonemeList.length; i++)
   {
-    let phonemeClone = phonemeList.splice(i, 1)
-    phonemeClone = phonemeClone.join(" ")
-    hash = phonemeClone.hashCode(dictKeys.length * 4)
+    // console.log(phonemeList.splice(i, 1))
+    // console.log("i",i)
+    let phonemeClone = phonemeList.slice()
+    // console.log("PC", phonemeClone)
+    phonemeClone.splice(i, 1)
+    let stringified = phonemeClone.join(" ")
+    // stringified = stringified.replace("\r","")
+    
+    hash = stringified.hashCode(dictKeys.length * 4)
+    // bears should reduce to bear which is in index 417523
+    if (stringified == "b eh1 r"){
+      console.log("|||||||||||||Stringified == b eh1 r|||||||||||||||")
+      console.log(`phoneme clone spliced at ${i}`, phonemeClone)
+      stringified.split("").map(c => {
+        console.log(c.charCodeAt(0))
+      })
+      console.log(`stringified result |${stringified}|`)
+      console.log(`Hash ${hash}`)
+      console.log("b eh1 r".hashCode(dictKeys.length*4))
+      console.log(`hashMap[hash] ${hashMap[hash]}`)
+    }
     if (hashMap[hash] !== undefined)
     {
       hashMap[hash].forEach((o, i, a) =>
       {
         let key = getObjectsKey(o)
-        console.log("Dictionary[key] phoneme clone", dictionary[key], phonemeClone)
-        if (checkIfIdentical(dictionary[key], phonemeClone))
+        // console.log("Dictionary[key] phoneme clone", dictionary[key], phonemeClone)
+        if (checkIfIdentical(dictionary[key], stringified))
         {
           matches.push(key)
         }
@@ -95,9 +115,8 @@ function findRemovedPhonemes(word, dictionary, hashMap)
 
 function findAddedPhonemes(word, dictionary, hashMap)
 {
-  findWordsHashIndex("bears", hashMap)
-  findWordsHashIndex("despairs", hashMap)
-
+  // findWordsHashIndex("bears", hashMap)
+  // findWordsHashIndex("despairs", hashMap)
   let matches = []
   let phonemeSequence = dictionary[word]
   let phonemeSequenceList = phonemeSequence.split(" ")
@@ -123,7 +142,6 @@ function findAddedPhonemes(word, dictionary, hashMap)
       }
     })
   }
-  console.log("Matches", matches)
   return matches
 }
 
@@ -249,7 +267,7 @@ function appendMatches(word, dictionary, matches)
   {
     let rp = document.createElement("h4")
     rp.innerText = "REMOVED PHONEMES: "
-    ws.rppendChild(rp)
+    ws.appendChild(rp)
     matches["removePhoneme"].forEach((v, i, a) =>
     {
       let rp = document.createElement("span")
@@ -267,12 +285,15 @@ function appendMatches(word, dictionary, matches)
 
 
 
-function hashDictionaryValues(dictionary)
+function createHashTable(dictionary)
 {
+  let size = dictKeys.length*4
   dictKeys.forEach((v, i, a) =>
   {
-
-    let hashValue = dictionary[v].hashCode(dictKeys.length * 4)
+    if (v == "bear"){
+      console.log(`bear's value: ${dictionary['bear']}\n hash value of 'bear's value: ${dictionary['bear'].hashCode(size)}\n and hash value of ""b eh1 r" directly ${"b eh1 r".hashCode(size)}`)
+    }
+    let hashValue = dictionary[v].hashCode(size)
     if (hashMap[hashValue] === undefined)
     {
       hashMap[hashValue] = [{ [v]: dictionary[v] }] // 4 times load factor
@@ -351,9 +372,6 @@ function findWordsHashIndex(word, hashMap)
         }
       }
     })
-
-
-
   })
   if (dictKeys.indexOf(word) === -1)
   {
