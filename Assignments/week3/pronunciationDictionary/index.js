@@ -1,9 +1,20 @@
+document.body.onload = ()=>{loadEverything()}
+
 document.getElementById("find-btn").addEventListener("click", () => { findWords() })
 document.body.addEventListener("keypress", function (e) { if (e.key == "Enter") { findWords() } })
 
 let wordDictionary = {}
 let hashMap = []
 let phonemeList = []
+let dictKeys = []
+
+function loadEverything(){
+  populateDictionary()
+  dictKeys = Object.keys(wordDictionary)
+  console.log("Word dictionary Created. Length =", dictKeys.length)
+  hashDictionaryValues(wordDictionary)
+  console.log("Hashmap of dictionary values created")
+}
 function findWords()
 {
   // alert("Looking for some words eh? ")
