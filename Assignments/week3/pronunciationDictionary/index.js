@@ -95,6 +95,7 @@ return matches
 function findAddedPhonemes(word, dictionary, hashMap)
 {
   findWordsHashIndex("bears",hashMap)
+  console.log(hashMap[418335])
   // console.log("Hash map of bears", hashMap[98143])
   findWordsHashIndex("despairs",hashMap)
 
@@ -104,14 +105,19 @@ function findAddedPhonemes(word, dictionary, hashMap)
   // console.log("phoneme sequence list", phonemeSequenceList)
   for (let i = 0; i <= phonemeSequenceList.length; i++)
   {
-    phonemeList.forEach((p, ind) =>
+    phonemeList.forEach((p, ind) => // all the items in the list
     {
       let trialPhonemeSequence = phonemeSequenceList.slice()
       // console.log("Old Trial phoneme sequence", trialPhonemeSequence)
-      trialPhonemeSequence.splice(i, 0, p)
-
-      // console.log("New Trial Phoneme Sequence", trialPhonemeSequence)
+      trialPhonemeSequence.splice(i, 0, p) // replace each 0 with p, replace each 
       let stringified = trialPhonemeSequence.join(" ")
+      if (p == "z"){
+        console.log("SHould be adding 'z' at ", i, "so we got", trialPhonemeSequence, "and stringified", stringified)
+      }
+      // console.log("New Trial Phoneme Sequence", trialPhonemeSequence)
+      if (stringified == "b eh1 r z"){
+        console.log("Bears stringified searching!!!!!!!!!!!!")
+      }
 
       let hash = stringified.hashCode(dictKeys.length * 4)
       if (hashMap[hash] !== undefined)
@@ -119,7 +125,7 @@ function findAddedPhonemes(word, dictionary, hashMap)
         // console.log("stringified", stringified)
         if (i == phonemeSequenceList.length)
         {
-          console.log("Hash map[hash]", hashMap[hash])
+          // console.log("Hash map[hash]", hashMap[hash])
         }
         hashMap[hash].forEach((o) =>
         {
