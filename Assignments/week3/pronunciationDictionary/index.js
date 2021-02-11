@@ -35,35 +35,30 @@ function findWords()
   if (dictKeys.indexOf(word) === -1)
   {
     alert(`Your word ${word} was not found in the dictionary. Try another word`)
+    return;
   }
-  let entry = searchDictionaryForWord(word)
-  if (entry == [])
-  {
-    alert("Word not found in dictionary")
-  }
+  let matches = searchDictionaryForWord(word)
   // Do something. Return values
 }
 
 
 function searchDictionaryForWord(word, dictionary)
 {
+  let matchResults = {}
+  let identicals = findIdenticals(word, dictionary)
+  let subbedPhonemes = findSubbedPhonemes(word,dictionary)
+  let addedPhonemes = findAddedPhonemes(word,dictionary)
+  let removedPhonemes = findRemvedPhonemes(word,dictionary)
 
-  if (false) // if word not not found.
-  {
-    return []
-  }
-
-  let data = {}
-  data['pronunciation'] = "Fill me up"
-  data['identical'] = ["Fill me up"]
-  data['replacePhoneme'] = ["Fill me up"]
-  data['addPhoneme'] = ["Fill me up"]
-  data['addPhoneme'] = ["Fill me up"]
-  data['removePhoneme'] = ["fill me up"]
-
-
-  return data
+  matchResults['pronunciation'] = dictionary[word]
+  matchResults['identical'] = identicals
+  matchResults['replacePhoneme'] = subbedPhonemes
+  matchResults['addPhoneme'] = addedPhonemes
+  matchResults['removePhoneme'] = removedPhonemes
+  return matchResults
 }
+
+
 
 
 function populateDictionary(emptyDictionary)
