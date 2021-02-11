@@ -28,7 +28,7 @@ function findWords()
   let splitWords = wordInput.split(" ")
   if (splitWords.length > 1)
   {
-    alert("Enter just one word")
+    alert("Enter just one word silly")
     return
   }
   word = splitWords[0].toLowerCase()
@@ -45,6 +45,10 @@ function findWords()
     console.log("Word dictionary Created. Length =", dictKeys.length)
     createHashTable(wordDictionary)
     console.log("Hashmap of dictionary values created")
+  }
+  if (wordDictionary[word] === undefined){
+    alert(`The word ${word} is unfortunately not in our archives. Try another entry`)
+    return
   }
   let matches = searchDictionaryForWord(word, wordDictionary, hashMap)
   console.log("matches returned", matches)
@@ -68,40 +72,21 @@ function searchDictionaryForWord(word, dictionary, hashMap)
 
 function findRemovedPhonemes(word, dictionary, hashMap)
 {
-  findWordsHashIndex('bear', hashMap)
+  // findWordsHashIndex('bear', hashMap) // utility function
   matches = []
   let phonemeList = dictionary[word]
   phonemeList = phonemeList.split(" ")
-  console.log(phonemeList)
   for (let i = 0; i < phonemeList.length; i++)
   {
-    // console.log(phonemeList.splice(i, 1))
-    // console.log("i",i)
     let phonemeClone = phonemeList.slice()
-    // console.log("PC", phonemeClone)
     phonemeClone.splice(i, 1)
     let stringified = phonemeClone.join(" ")
-    // stringified = stringified.replace("\r","")
-    
     hash = stringified.hashCode(dictKeys.length * 4)
-    // bears should reduce to bear which is in index 417523
-    if (stringified == "b eh1 r"){
-      console.log("|||||||||||||Stringified == b eh1 r|||||||||||||||")
-      console.log(`phoneme clone spliced at ${i}`, phonemeClone)
-      stringified.split("").map(c => {
-        console.log(c.charCodeAt(0))
-      })
-      console.log(`stringified result |${stringified}|`)
-      console.log(`Hash ${hash}`)
-      console.log("b eh1 r".hashCode(dictKeys.length*4))
-      console.log(`hashMap[hash] ${hashMap[hash]}`)
-    }
     if (hashMap[hash] !== undefined)
     {
       hashMap[hash].forEach((o, i, a) =>
       {
         let key = getObjectsKey(o)
-        // console.log("Dictionary[key] phoneme clone", dictionary[key], phonemeClone)
         if (checkIfIdentical(dictionary[key], stringified))
         {
           matches.push(key)
@@ -223,8 +208,6 @@ function appendMatches(word, dictionary, matches)
       }
     })
   }
-
-
   if (matches["replacePhoneme"].length > 0)
   {
     let rp = document.createElement("h4")
@@ -281,18 +264,23 @@ function appendMatches(word, dictionary, matches)
     rp.innerText = "REMOVED PHONEMES: No matches found"
     ws.appendChild(rp)
   }
+
+  ws.appendChild(document.createElement('hr'))
 }
 
-
+function printStringChars(string)
+{
+  string.split("").map(c =>
+  {
+    console.log(c.charCodeAt(0))
+  })
+}
 
 function createHashTable(dictionary)
 {
-  let size = dictKeys.length*4
+  let size = dictKeys.length * 4
   dictKeys.forEach((v, i, a) =>
   {
-    if (v == "bear"){
-      console.log(`bear's value: ${dictionary['bear']}\n hash value of 'bear's value: ${dictionary['bear'].hashCode(size)}\n and hash value of ""b eh1 r" directly ${"b eh1 r".hashCode(size)}`)
-    }
     let hashValue = dictionary[v].hashCode(size)
     if (hashMap[hashValue] === undefined)
     {
@@ -320,7 +308,7 @@ function populateDictionary()
     var x = v.split("  ")
     if (validateDictString(x[0]))
     {
-      wordDictionary[x[0].toLowerCase()] = x[1].toLowerCase()
+      wordDictionary[x[0].toLowerCase().replace("\r", "")] = x[1].toLowerCase().replace("\r", "")
     }
   })
   getListOfPhonemes(wordEntries)
