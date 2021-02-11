@@ -35,13 +35,8 @@ function findWords()
     hashDictionaryValues(wordDictionary)
     console.log("Hashmap Created")
     console.log(hashMap)
-
   }
-  if (dictKeys.indexOf(word) === -1)
-  {
-    alert(`Your word ${word} was not found in the dictionary. Try another word`)
-    return;
-  }
+findWordsHashIndex("dear", hashMap)
   let matches = searchDictionaryForWord(word)
   // Do something. Return values
 }
@@ -71,7 +66,9 @@ function findIdenticals(word, dictionary)
 
 function hashDictionaryValues(dictionary)
 {
+  console.log(dictionary)
   let dictKeys = Object.keys(dictionary)
+  console.log(dictKeys.length)
   dictKeys.forEach((v, i, a) =>
   {
     let hashValue = dictionary[v].hashCode(dictKeys.length * 4)
@@ -83,7 +80,6 @@ function hashDictionaryValues(dictionary)
       hashMap[hashValue].push({[v]:dictionary[v]})
     }
   })
-  console.log(hashMap)
   // idenicals will be duplicates. 
 }
 
@@ -138,3 +134,22 @@ Object.defineProperty(String.prototype, 'hashCode', {
     return (Math.abs(this.split("").reduce(function (a, b) { a = ((a << 5) - a) + b.charCodeAt(0); return a & a }, 0)) ) % ll
   }
 }); 
+
+function findWordsHashIndex(word, hashMap){
+  hashMap.forEach((v,i,a)=>{
+    for (const item in v[0]){
+      if (item === word){
+        console.log(`Word ${word} found at`, i)
+      }
+    }
+
+  })
+
+
+  if (dictKeys.indexOf(word) === -1)
+  {
+    alert(`Your word ${word} was not found in the dictionary. Try another word`)
+    return;
+  }
+
+}
