@@ -111,22 +111,31 @@ function findAddedPhonemes(word, dictionary, hashMap)
       // console.log("Old Trial phoneme sequence", trialPhonemeSequence)
       trialPhonemeSequence.splice(i, 0, p) // replace each 0 with p, replace each 
       let stringified = trialPhonemeSequence.join(" ")
+      stringified = stringified.replace("\r", "")
       if (p == "z"){
+        console.log(trialPhonemeSequence)
+        let bearstring = 'b eh1 r z'
         console.log("SHould be adding 'z' at ", i, "so we got", trialPhonemeSequence, "and stringified", stringified)
+        console.log(`String|${dictionary['bears']}| length ${dictionary['bears'].length} should equal |${stringified}| length ${stringified.length}: ${dictionary['bears'] == stringified} and ${bearstring == stringified}`);
+        console.log(`Types: ${typeof dictionary['bears']} and ${typeof stringified}` )
+
+        stringified.split("").map(c => {
+          console.log(c.charCodeAt(0))
+        })
+        console.log("New word")
+        bearstring.split("").map(c => {
+          console.log(c.charCodeAt(0))
+        })
+        console.log(stringified==bearstring)
       }
       // console.log("New Trial Phoneme Sequence", trialPhonemeSequence)
-      if (stringified == "b eh1 r z"){
+      if (stringified == "b eh1 r z"){  //THIS IS WHERE ITS BROKEN
         console.log("Bears stringified searching!!!!!!!!!!!!")
       }
 
       let hash = stringified.hashCode(dictKeys.length * 4)
       if (hashMap[hash] !== undefined)
       {
-        // console.log("stringified", stringified)
-        if (i == phonemeSequenceList.length)
-        {
-          // console.log("Hash map[hash]", hashMap[hash])
-        }
         hashMap[hash].forEach((o) =>
         {
           // console.log("O", o)
@@ -159,7 +168,7 @@ function findReplacedPhonemes(word, dictionary, hashMap)
   let matches = []
   let pronunciation = dictionary[word]
   let pronunciationArray = pronunciation.split(" ")
-  let phone
+
   // console.log("word pronunciaion array", pronunciationArray )
   pronunciationArray.forEach((v, i, a) =>
   {
@@ -204,7 +213,7 @@ function getObjectsKey(obj)
 }
 function checkIfIdentical(string1, string2)
 {
-  if (string1 === string2)
+  if (String(string1) === String(string2))
   {
     return true
   }
