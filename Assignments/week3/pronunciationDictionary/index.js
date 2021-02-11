@@ -2,6 +2,7 @@ document.getElementById("find-btn").addEventListener("click", () => { findWords(
 document.body.addEventListener("keypress", function (e) { if (e.key == "Enter") { findWords() } })
 
 let wordDictionary = {}
+let hashMap = []
 function findWords()
 {
   // alert("Looking for some words eh? ")
@@ -31,6 +32,10 @@ function findWords()
     populateDictionary(wordDictionary)
     dictKeys = Object.keys(wordDictionary)
     console.log("Word dictionary Created. Length =", dictKeys.length)
+    hashDictionaryValues(wordDictionary)
+    console.log("Hashmap Created")
+    console.log(hashMap)
+
   }
   if (dictKeys.indexOf(word) === -1)
   {
@@ -44,22 +49,43 @@ function findWords()
 
 function searchDictionaryForWord(word, dictionary)
 {
-  let matchResults = {}
-  let identicals = findIdenticals(word, dictionary)
-  let subbedPhonemes = findSubbedPhonemes(word,dictionary)
-  let addedPhonemes = findAddedPhonemes(word,dictionary)
-  let removedPhonemes = findRemvedPhonemes(word,dictionary)
+  // let matchResults = {}
+  // let identicals = findIdenticals(word, dictionary)
+  // let subbedPhonemes = findSubbedPhonemes(word, dictionary)
+  // let addedPhonemes = findAddedPhonemes(word, dictionary)
+  // let removedPhonemes = findRemvedPhonemes(word, dictionary)
 
-  matchResults['pronunciation'] = dictionary[word]
-  matchResults['identical'] = identicals
-  matchResults['replacePhoneme'] = subbedPhonemes
-  matchResults['addPhoneme'] = addedPhonemes
-  matchResults['removePhoneme'] = removedPhonemes
-  return matchResults
+  // matchResults['pronunciation'] = dictionary[word]
+  // matchResults['identical'] = identicals
+  // matchResults['replacePhoneme'] = subbedPhonemes
+  // matchResults['addPhoneme'] = addedPhonemes
+  // matchResults['removePhoneme'] = removedPhonemes
+  // return matchResults
+}
+
+function findIdenticals(word, dictionary)
+{
+
 }
 
 
-
+function hashDictionaryValues(dictionary)
+{
+  let dictKeys = Object.keys(dictionary)
+  dictKeys.forEach((v, i, a) =>
+  {
+    let hashValue = dictionary[v].hashCode(dictKeys.length * 4)
+    if (hashMap[hashValue] === undefined)
+    {
+      hashMap[hashValue] = [{[v]:dictionary[v]}] // 4 times load factor
+    }
+    else{
+      hashMap[hashValue].push({[v]:dictionary[v]})
+    }
+  })
+  console.log(hashMap)
+  // idenicals will be duplicates. 
+}
 
 function populateDictionary(emptyDictionary)
 {
@@ -92,11 +118,6 @@ function validateInputString(string)
   return false;
 }
 
-function validateDictString(string)
-{
-  return !(/[(\-)0-9]+/.test(string)) // returns true if found, so bad
-}
-
 
 function readTextFile(file = "./cmu.txt")
 {
@@ -106,4 +127,14 @@ function readTextFile(file = "./cmu.txt")
   return rawFile.responseText
 }
 
+function validateDictString(string)
+{
+  return !(/[(\-)0-9]+/.test(string)) // returns true if found, so bad
+}
 
+Object.defineProperty(String.prototype, 'hashCode', {
+  value: function (ll = 1000)
+  {
+    return (Math.abs(this.split("").reduce(function (a, b) { a = ((a << 5) - a) + b.charCodeAt(0); return a & a }, 0)) ) % ll
+  }
+}); 

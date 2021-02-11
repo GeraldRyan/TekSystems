@@ -7,16 +7,6 @@ function sleep(milliseconds) {
 }
 
 
-// Synchronous request - Read Local Text File
-function readTextFile(file = "./foo/bar.txt")
-{
-  var rawFile = new XMLHttpRequest();
-  rawFile.open("GET", file, false);
-  rawFile.send(null);
-  return rawFile.responseText
-}
-
-
 // Allowed characters in a string - does not filter. Just accepts or rejects
 function validateString(string)
 {
