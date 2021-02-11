@@ -33,12 +33,12 @@ function findWords()
     dictKeys = Object.keys(wordDictionary)
     console.log("Word dictionary Created. Length =", dictKeys.length)
     hashDictionaryValues(wordDictionary)
-    console.log("Hashmap Created")
-    console.log(hashMap)
+    console.log("Hashmap of dictionary values created")
   }
-  findWordsHashIndex("dear", hashMap)
+  // findWordsHashIndex("dear", hashMap) // GOOD DEBUGGING TOOL
   let matches = searchDictionaryForWord(word, wordDictionary, hashMap)
-  // Do something. Return values
+  console.log("matches returned", matches)
+  appendMatches(word, wordDictionary, matches)
 }
 
 
@@ -51,7 +51,7 @@ function searchDictionaryForWord(word, dictionary, hashMap)
   // let removedPhonemes = findRemvedPhonemes(word, dictionary)
 
   // matchResults['pronunciation'] = dictionary[word]
-  matchResults['identical'] = identicals
+  matchResults['identicals'] = identicals
   // matchResults['replacePhoneme'] = subbedPhonemes
   // matchResults['addPhoneme'] = addedPhonemes
   // matchResults['removePhoneme'] = removedPhonemes
@@ -60,19 +60,47 @@ function searchDictionaryForWord(word, dictionary, hashMap)
 
 function findIdenticals(word, dictionary, hashMap)
 {
-  let arrayOfIdenticals = []
-  let entries = hashMap[dictionary[word].hashCode(Object.keys(dictionary).length *4)]
-  console.log(entries)
+  return hashMap[dictionary[word].hashCode(Object.keys(dictionary).length * 4)]
+}
 
+
+function appendMatches(word, dictionary, matches)
+{
+  let w = document.createElement("h4")
+  w.innerText = "WORD: " + word
+  let pronunciation = document.createElement("h4")
+  pronunciation.innerText = "PRONUNCIATION: " + dictionary[word].toLowerCase()
+  ws = document.getElementById("world-seed")
+  ws.appendChild(w)
+  ws.appendChild(pronunciation)
+
+  if (matches["identicals"].length > 0)
+  {
+    let identicals = document.createElement("h4")
+    identicals.innerText = "IDENTICALS: "
+    ws.appendChild(identicals)
+    matches["identicals"].forEach((v, i, a) =>
+    {
+      for (const key in v)
+      {
+        console.log("Key", key)
+        let identical = document.createElement("span")
+        identical.innerText = key + " "
+        ws.appendChild(identical)
+      }
+    })
+    // let identicals = document.createElement("h4")
+    // identicals.innerText = matches["identicals"]
+
+  }
 
 }
 
 
+
 function hashDictionaryValues(dictionary)
 {
-  console.log(dictionary)
   let dictKeys = Object.keys(dictionary)
-  console.log(dictKeys.length)
   dictKeys.forEach((v, i, a) =>
   {
     let hashValue = dictionary[v].hashCode(dictKeys.length * 4)
