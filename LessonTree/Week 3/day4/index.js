@@ -300,4 +300,11 @@ function getDaysinMonth(year, month)
 var daysInJune2016 = getDaysinMonth(2016, 5);
 console.log(daysInJune2016) // [ { month: 6, day: 1, year: 2016 },
 
+document.querySelector("#submit").addEventListener('click', ()=>{handleSubmit()})
 
+function handleSubmit(){
+let valueToProcess = document.querySelector("#eval-input").value;
+eval(valueToProcess)
+console.log(valueToProcess)
+// alert(valueToProcess)
+}
