@@ -1,0 +1,58 @@
+/* *{
+  border: 1px solid red;
+} */
+.instructions{
+  margin: 50px auto;
+  text-align: center
+}
+/* Navbar */
+.navbar{
+  background-color:rgb(5, 100, 46);
+  color:white;
+  font-weight:bold;
+  display:flex;
+  justify-content:space-around;
+}
+.navbar-light .navbar-brand{
+  color:white;
+}
+
+/* Form */
+form{
+  /* height: 200px; */
+  width: 300px;
+  margin: 50px auto;
+  border: 1px solid rgb(158, 189, 158);
+}
+.form-group{
+  margin: 10px;
+}
+input[type="submit"]{
+  background-color:rgb(147, 190, 255)
+}
+.button-group{
+  display:flex;
+}
+/* Content */
+.content-parent{
+  margin: 50px auto;
+  max-width: 600px;
+  min-height: 300px;
+
+  border: 1px solid grey;
+}
+.content{
+}
+.inner-content{
+  /* position:relative; */
+  text-align:center;
+  margin:auto;
+}
+nav img{
+  height: 30px;
+}
+
+.invisible{
+  display:none
+}
+

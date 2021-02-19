@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <title>Calculator</title>
+    <style>
+
+    </style>
+  </head>
+  <body>
+    <table class="calculator">
+      <thead>
+        <tr>
+          <th colspan="4" id="output-screen">0.00</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="number-btn" id="pi-btn">&#960</td>
+          <td class="number-btn" id="e-btn">e</td>
+          <td class="number-btn" id="power-btn">pow</td>
+          <td class="log-btn" id="log-btn">log</td>
+        </tr>
+        <tr>
+          <td class="number-btn" id="seven">7</td>
+          <td class="number-btn" id="eight">8</td>
+          <td class="number-btn" id="nine">9</td>
+          <td class="function-btn" id="clear-btn">C</td>
+        </tr>
+        <tr>
+          <td class="number-btn" id="four">4</td>
+          <td class="number-btn" id="five">5</td>
+          <td class="number-btn" id="six">6</td>
+          <td class="function-btn" id="divide-btn">/</td>
+        </tr>
+        <tr>
+          <td class="number-btn" id="one">1</td>
+          <td class="number-btn" id="two">2</td>
+          <td class="number-btn" id="three">3</td>
+          <td class="function-btn" id="multiply-btn">*</td>
+        </tr>
+        <tr>
+          <td class="rr-btn" id="rr-btn">rr</td>
+          <td class="number-btn" id="zero">0</td>
+          <td class="number-btn" id="decimal-point">.</td>
+          <td class="function-btn" id="add-btn">+</td>
+        </tr>
+        <tr>
+          <td class="" id="i-btn">i</td>
+          <td class="function-btn" id="ln-btn">ln</td>
+          <td class="function-btn" id="log2-btn">Log2</td>
+          <td class="function-btn" id="cc-btn">CC</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="3" class="function-btn" id="equals-sign"> = </td>
+          <td class="function-btn" id="subtract-btn"> -</td>
+        </tr>
+      </tfoot>
+    </table>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/9.2.0/math.js"
+      integrity="sha512-SewEag0kt1xsJdbfAXgLyLvYXeAoGEla4M6JSitT6ocJVI+VeUbFXkgrbloNn4cVgq46caRf31un2eoalq6YOw=="crossorigin="anonymous"></script>
+    <script
+      src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
+    <script src="index.js"></script>
+  </body>
+</html>

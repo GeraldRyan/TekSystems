@@ -1,0 +1,1 @@
+Where can I get a testing library for JS front end that doens't rely on Node/npm? 
