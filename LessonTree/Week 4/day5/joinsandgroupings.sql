@@ -23,10 +23,17 @@ SELECT STATUS, COUNT(*) 'count' FROM orders GROUP BY STATUS;
 -- https://www.w3resource.com/sql/aggregate-functions/count-with-group-by.php
 
 
-Part 4
-Write a query to list, for each product line, the total # of products sold from that product line.
-The first column should be Product Line and the second should be # Sold.
-Order by the second column descending.
+-- Part 4
+-- Write a query to list, for each product line, the total # of products sold from that product line. 
+-- The first column should be Product Line and the second should be # Sold.
+-- Order by the second column descending.
+
+SELECT pl.productLine, SUM(od.quantityOrdered) AS '# sold' FROM productlines pl JOIN products p USING (productline) JOIN orderdetails od USING (productCode) GROUP BY 1 ORDER BY 2 desc;
+
+
+
+
+
 Part 5
 For each employee who represents customers, output the total # of orders that employee’s customers have placed alongside the total sale amount of those orders.
 The employee name should be output as a single column named Sales Rep formatted as lastName, firstName.
